@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ans.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}">
+    <title>cook_with</title>
+    <meta property="og:url" content="https://cw.pythonanywhere.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="COOK_WITH" />
+    <meta property="og:description" content="欲しい栄養素が摂れる料理がすぐわかる！料理検索サイト" />
+    <meta property="og:site_name" content="COOK_WITH" />
+    <meta property="og:image" content="https://cw.pythonanywhere.com/static/cook_with.png" />
+    <meta property="description" content="欲しい栄養素が摂れる料理レシピがすぐわかる！料理検索サイト" />
+</head>
+<body>
+    <div class = "back" style="background: url(../static/back.jpeg) 0% 0%">
+        <img src="{{ url_for('static', filename='cook_with.png') }}" style="width: 200px;">
+        <p>COOK_WITH</p>
+        <p class="title">欲しい栄養素が摂れる料理がすぐわかる！料理検索サイト</p>
+    </div>
+    <p style="background-color: aqua; width: 120px; text-align: center;">☆検索ワード</p>
+    <p style="background-color: rgba(30, 255, 0, 0.616); width: 150px; text-align: center;">一番欲しい栄養素</p>
+    <ul>
+        <li>&#149;{{ name1 }}</li>
+    </ul>
+    <p style="background-color: rgba(30, 255, 0, 0.616); width: 180px; text-align: center;">その他の欲しい栄養素</p>
+    <ul>
+        <li>&#149;{{ name2 }}</li>
+        <li>&#149;{{ name3 }}</li>
+    </ul>
+    <p style="background-color: rgba(30, 255, 0, 0.616); width: 90px; text-align: center;">表示形式</p>
+    <ul>
+        <li>&#149;{{ format }}</li>
+    </ul>
+    
+
+    {% if recipes==[] %}
+        <table>
+            <tr>
+                <th>レシピURL</th>
+                <th>レシピ名</th>
+            </tr>
+        </table>
+        <p>条件を満たすレシピは見つかりませんでした。</p>
+    {% else %}
+        <table>
+        <tr>
+            <th>レシピ名</th>
+            <th>レシピURL</th>
+        </tr>
+        {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.name }}</td>
+                <td><a href="{{ recipe.url }}" style="color: rgb(0, 68, 255);">{{ recipe.url }}</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    
+    <button type="submit"  onclick=location.href="{{ url_for('home') }}">ホームに戻る</button>
+    <p class="kurashiru">引用元&nbsp;クラシル</p>
+    <div class="footer">
+        <p id="copyright">© 2022 Ritsuki Ishikawa & Ryoka Hamochi</p>
+    </div>
+</body>
+</html>

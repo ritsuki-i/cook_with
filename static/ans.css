@@ -1,0 +1,108 @@
+.back>p{
+    font-family: "コーポレート明朝 ver2" ;
+    font-size: 50px;
+  }
+  .back>.title{
+    font-family: "コーポレート明朝 ver2" ;
+    font-size: 25px;
+  }
+.kurashiru{
+    font-size: 20px;
+    color: #ffa601ad;
+    font-family: "コーポレート明朝 ver2" ;
+}
+
+.footer {
+    height: 90px;
+    margin-top: 50px;
+    background: rgb(255, 187, 0);
+    text-align: center;
+}
+
+#copyright {
+    font-size: 15px;
+    color: #000000;
+    padding-top: 25px;
+}
+button{
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-color: rgb(47, 252, 6);
+    border-radius: 10px;
+    bottom: 10px;
+    left: 10px;
+}
+ul>li{
+    display: inline;
+    margin-right: 0.5em;
+}
+table th{
+    color: #FF9800;
+    background: #fdedd4;
+    font-size: 25px;
+    padding: 10px;
+}
+table td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+table{
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: solid 3px orange;
+    word-break: break-all;
+}
+table th, table td{
+    border: solid 0.5px rgba(255, 166, 0, 0.425);
+}
+@media screen and (max-width: 774px) {
+    .back>.title{
+      font-size: 20px;
+    }
+    .back>p{
+      font-size: 40px;
+    }
+    .kurashiru{
+      font-size: 15px;
+    }
+    button{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 8px;
+        border-radius: 5px;
+        left: 65%;
+        bottom: 40px;
+        position: fixed;
+    }
+}
+@media screen and (max-width: 472px) {
+  .back>.title{
+      font-size: 15px;
+  }
+  .back>p{
+      font-size: 35px;
+  }
+  .kurashiru{
+      font-size: 13px;
+  }
+  table th{
+      font-size: 15px;
+  }
+  table td{
+      font-size: 10px;
+  }
+  button{
+      font-size: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 8px;
+      border-radius: 5px;
+      left: 65%;
+      bottom: 40px;
+  }
+}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form">
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+    <h2 style="background-color: rgba(30, 255, 0, 0.616);">アンケートフォーム</h2>
+    <form action="{{ url_for('submit') }}" method="post">
+    
+        <div class="item">
+            <label for="yourname" class="Q">名前（本名でなくても可、任意）：</label><br>
+            <input class="yourname" type="text" id="yourname" name="yourname">
+        </div>
+    
+        <div class="item">
+            <label for="gender" class="Q">性別（必須）：</label><br>
+            <label class="gender"><input type="radio" name="gender" class="gender" value="男性">男性</label>
+            <label class="gender"><input type="radio" name="gender" class="gender" value=女性">女性</label>
+        </div>
+    
+        <div class="item">
+            <label for="age" class="Q">年齢（必須）：</label><br>
+            <select name="age" size="1" id="age" class="age">
+                <option value="">選択してください</option>
+                <option value="16歳未満">16歳未満</option>
+                <option value="16歳">16歳</option>
+                <option value="17歳">17歳</option>
+                <option value="18歳">18歳</option>
+                <option value="19歳">19歳</option>
+                <option value="20-29歳">20-29歳</option>
+                <option value="30-39歳">30-39歳</option>
+                <option value="40-49歳">40-49歳</option>
+                <option value="50-59歳">50-59歳</option>
+                <option value="60-69歳">60-69歳</option>
+                <option value="70-79歳">70-79歳</option>
+                <option value="80歳以上">80歳以上</option>
+            </select>
+        </div>
+    
+        <div class="item">
+            <label for="comment" class="Q">感想（必須）：<span style="color: crimson;">{{ message1 }}</span><br></label>
+            <textarea id="comment" name="comment" placeholder="ここには自由に感想を記入してください"></textarea>
+        </div>
+    
+        <div class="btn">
+            <input type="submit" value="送信する" class="submit" style="color: black;">
+            <input type="reset" value="リセット" class="reset">
+        </div>
+    
+    </form>
+    <p>{{ message2 }}</p>
+    <button type="submit" class="home" onclick=location.href="{{ url_for('home') }}">ホームに戻る</button>
+</div>
+
+{% endblock %}

@@ -1,0 +1,168 @@
+
+body{
+  margin: 0;
+}
+.home{
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-color: rgb(255, 188, 62);
+    border-radius: 10px;
+}
+
+.form {
+  margin-left: 8px;
+}
+
+.footer {
+  height: 90px;
+  margin-top: 50px;
+  background: rgb(255, 187, 0);
+  text-align: center;
+}
+
+#copyright {
+  font-size: 15px;
+  color: #000000;
+  padding-top: 25px;
+}
+.kurashiru{
+    font-size: 20px;
+    color: #ffa601ad;
+    font-family: "コーポレート明朝 ver2" ;
+    margin-left: 8px;
+}
+textarea{
+    border: solid 1px #aaa;
+    border-radius:5px;
+    padding: 10px;
+    height: 30px;
+    width: 1000px;
+    font-size: 20px;
+}
+.item{
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+form{
+    width:100%;
+    background-color: rgba(255, 200, 80, 0.473);
+}
+.yourname{
+    font-size: 20px;
+}
+label{
+    font-size: 20px;
+}
+.back>.title{
+    font-family: "コーポレート明朝 ver2" ;
+    font-size: 50px;
+  }
+.back>.subtitle{
+    font-family: "コーポレート明朝 ver2" ;
+    font-size: 25px;
+}
+.btn>.submit{
+    display       : inline-block;
+    border-radius : 5%;          /* 角丸       */
+    font-size     : 15pt;        /* 文字サイズ */
+    text-align    : center;      /* 文字位置   */
+    cursor        : pointer;     /* カーソル   */
+    padding       : 10px 10px;   /* 余白       */
+    background    : #00eeff8f;     /* 背景色     */
+    color         : #ff0000;     /* 文字色     */
+    line-height   : 1em;         /* 1行の高さ  */
+    transition    : .3s;         /* なめらか変化 */
+    border        : 2px solid #0099ff;    /* 枠の指定 */
+    margin-right: 20px;
+}
+.submit:hover {
+    box-shadow    : none;        /* カーソル時の影消去 */
+    background    : #ffffff;     /* 文字色     */
+  }
+.btn>.reset{
+    display       : inline-block;
+    border-radius : 5%;          /* 角丸       */
+    font-size     : 15pt;        /* 文字サイズ */
+    text-align    : center;      /* 文字位置   */
+    cursor        : pointer;     /* カーソル   */
+    padding       : 10px 10px;   /* 余白       */
+    background    : #00eeff8f;     /* 背景色     */
+    color         : #ff0000;     /* 文字色     */
+    line-height   : 1em;         /* 1行の高さ  */
+    transition    : .3s;         /* なめらか変化 */
+    border        : 2px solid #0099ff;    /* 枠の指定 */
+}
+.reset:hover {
+    box-shadow    : none;        /* カーソル時の影消去 */
+    color         : #ff0000;     /* 背景色     */
+    background    : #ffffff;     /* 文字色     */
+  }
+@media screen and (max-width: 774px) {
+    .back>.subtitle{
+      font-size: 20px;
+    }
+    .back>.title{
+      font-size: 40px;
+    }
+    .kurashiru{
+      font-size: 15px;
+    }
+    .btn>.submit{
+        font-size: 15px;
+        padding: 7px 7px;
+      }
+      .btn>.reset{
+        font-size: 15px;
+        padding: 7px 7px;
+      }
+    .home{
+        font-size: 15px;
+    }
+}
+@media screen and (max-width: 472px) {
+  .back>.subtitle{
+    font-size: 15px;
+  }
+  .back>.title{
+    font-size: 35px;
+  }
+  .kurashiru{
+    font-size: 10px;
+  }
+  p{
+    font-size: 12px;
+  }
+  h1{
+    font-size: 20px;
+  }
+  h2{
+    font-size: 18px;
+  }
+  h3{
+    font-size: 15px;
+  }
+  .Q{
+      font-size: 15px;
+  }
+  .yourname{
+    font-size: 10px;
+  }
+  textarea{
+    font-size: 10px;
+    padding: 7px;
+    height: 20px;
+    width: 500px;
+  }
+  .btn>.submit{
+    font-size: 15px;
+    padding: 7px 7px;
+  }
+  .btn>.reset{
+    font-size: 15px;
+    padding: 7px 7px;
+  }
+}
