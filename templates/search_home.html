@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='search_home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='select2.min.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='COOKWITH_g.png') }}">
+    <title>cook_with</title>
+    <meta property="og:url" content="https://cw.pythonanywhere.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="COOK_WITH" />
+    <meta property="og:description" content="使いたい食材を使う料理レシピがすぐわかる！料理検索サイト" />
+    <meta property="og:site_name" content="COOK_WITH" />
+    <meta property="og:image" content="https://cw.pythonanywhere.com/static/cook_with.png" />
+    <meta property="description" content="使いたい食材を使う料理レシピがすぐわかる！料理検索サイト" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='select2.min.js') }}"></script>
+    
+</head>
+
+<body>
+    <div class="back" style="background: url(../static/green_back.jpg) 0% 0%">
+        <nav class="header__nav nav" id="js-nav">
+            <ul class="nav__items nav-items">
+                <li class="nav-items__item"><a href="{{ url_for('index') }}">ホーム</a></li>
+                <li class="nav-items__item"><a onclick="uncooked();">使い方</a></li>
+                <li class="nav-items__item"><a onclick="uncooked();">システム説明</a></li>
+                <li class="nav-items__item"><a onclick="uncooked();">栄養素説明</a></li>
+                <li class="nav-items__item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+            </ul>
+        </nav>
+        <button class="header__hamburger hamburger" id="js-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <img src="{{ url_for('static', filename='COOKWITH_g.png') }}" style="width: 200px; "
+            alt="cookwithのロゴ">
+        <p class="title">COOK_WITH</p>
+        <p class="subtitle">使いたい食材を使う料理がすぐわかる！料理レシピ検索サイト</p>
+    </div>
+    <div class="contents">
+        <ul class="menu">
+            <li class="item"><a href="{{ url_for('index') }}">ホーム</a></li>
+            <li class="item"><a onclick="uncooked();">使い方</a></li>
+            <li class="item"><a onclick="uncooked();">システム説明</a></li>
+            <li class="item"><a onclick="uncooked();">栄養素説明</a></li>
+            <li class="item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+        </ul>
+        <a href="{{ url_for('home') }}">欲しい栄養素で検索する</a>
+    </div>
+
+    <form action="/search_ans" method="POST">
+        <div class="backg" style="background: url(../static/green_backg.jpg) 0% 0%">
+            <div class="search_element">
+            <p>使いたい食材:</p>
+            <select class="select_search" style="margin: 25vh 0px;" multiple="multiple" name="search_food">
+                {% for food in foods %}
+                    <option value="{{ food }}">{{ food }}</option>
+                {% endfor %}
+            </select>
+            <script>
+                $(document).ready(function () {
+                    $('.select_search').select2();
+                });
+            </script>
+            <p>フィルター</p>
+            <p id="review_area" style="color: #c2c2c2;"><input type="checkbox" id="review" name="review_flag">レビュー:
+                <select id="review_area_select" style="border: 1px solid #c2c2c2; color: #c2c2c2;" name="review_area_select">
+                    <option value=4.0>4.0</option>
+                    <option value=4.2>4.2</option>
+                    <option value=4.4>4.4</option>
+                    <option value=4.6>4.6</option>
+                    <option value=4.8>4.8</option>
+                </select>
+            以上</p>
+            <script>
+                window.addEventListener('DOMContentLoaded', function () {
+
+                        // チェックボックスのHTML要素を取得
+                        let input_review = document.getElementById("review");
+                        let review_area = document.getElementById("review_area");
+                        let review_area_select = document.getElementById("review_area_select");
+
+                        input_review.addEventListener('change', function () {
+                            if(this.checked){
+                                review_area.style.color = "#000000";
+                                review_area_select.style.color = "#000000";
+                                review_area_select.style.border = "1px solid #000000";
+                            }else{
+                                review_area.style.color = "#c2c2c2";
+                                review_area_select.style.color = "#c2c2c2";
+                                review_area_select.style.border = "1px solid #c2c2c2";
+                            }
+                        });
+                    });
+            </script>
+            <p id="cooktime_area" style="color: #c2c2c2;"><input type="checkbox" id="cooktime" name="cooktime_flag">調理時間:
+                <select id="cooktime_area_select" style="border: 1px solid #c2c2c2; color: #c2c2c2;" name="cooktime_area_select">
+                    <option value=10>10分</option>
+                    <option value=20>20分</option>
+                    <option value=30>30分</option>
+                    <option value=40>40分</option>
+                    <option value=50>50分</option>
+                    <option value=60>60分</option>
+                    <option value=70>70分</option>
+                    <option value=80>80分</option>
+                    <option value=90 selected>90分</option>
+                </select>
+                <input type="radio" name="cooktime_radio" value=1>以上
+                <input type="radio" name="cooktime_radio" value=0 checked>以下
+            </p>
+            <script>
+                window.addEventListener('DOMContentLoaded', function () {
+
+                    // チェックボックスのHTML要素を取得
+                    let input_cooktime = document.getElementById("cooktime");
+                    let cooktime_area = document.getElementById("cooktime_area");
+                    let cooktime_area_select = document.getElementById("cooktime_area_select");
+
+                    input_cooktime.addEventListener('change', function () {
+                        if (this.checked) {
+                            cooktime_area.style.color = "#000000";
+                            cooktime_area_select.style.color = "#000000";
+                            cooktime_area_select.style.border = "1px solid #000000";
+                        } else {
+                            cooktime_area.style.color = "#c2c2c2";
+                            cooktime_area_select.style.color = "#c2c2c2";
+                            cooktime_area_select.style.border = "1px solid #c2c2c2";
+                        }
+                    });
+                });
+            </script>
+            <p id="cost_area" style="color: #c2c2c2;"><input type="checkbox" id="cost" name="cost_flag">費用目安:
+                <select id="cost_area_select" style="border: 1px solid #c2c2c2; color: #c2c2c2;" name="cost_area_select">
+                    <option value=100>100円</option>
+                    <option value=200>200円</option>
+                    <option value=300>300円</option>
+                    <option value=400>400円</option>
+                    <option value=500>500円</option>
+                    <option value=600>600円</option>
+                    <option value=700>700円</option>
+                    <option value=800>800円</option>
+                    <option value=900 selected>900円</option>
+                </select>
+                以下
+            </p>
+            <script>
+                window.addEventListener('DOMContentLoaded', function () {
+
+                    // チェックボックスのHTML要素を取得
+                    let input_cost = document.getElementById("cost");
+                    let cost_area = document.getElementById("cost_area");
+                    let cost_area_select = document.getElementById("cost_area_select");
+
+                    input_cost.addEventListener('change', function () {
+                        if (this.checked) {
+                            cost_area.style.color = "#000000";
+                            cost_area_select.style.color = "#000000";
+                            cost_area_select.style.border = "1px solid #000000";
+                        } else {
+                            cost_area.style.color = "#c2c2c2";
+                            cost_area_select.style.color = "#c2c2c2";
+                            cost_area_select.style.border = "1px solid #c2c2c2";
+                        }
+                    });
+                });
+            </script>
+            <p id="keyword_area" style="color: #c2c2c2;"><input type="checkbox" id="keyword" name="keyword_flag">検索キーワード:
+            <input type="text" id="keyword_area_select" name="keyword_area_select"></p>
+            <script>
+                window.addEventListener('DOMContentLoaded', function () {
+                    // チェックボックスのHTML要素を取得
+                    let input_keyword = document.getElementById("keyword");
+                    let keyword_area = document.getElementById("keyword_area");
+                    let keyword_area_select = document.getElementById("keyword_area_select");
+
+                    input_keyword.addEventListener('change', function (){
+                        if (this.checked) {
+                            keyword_area.style.color = "#000000";
+                            keyword_area_select.style.color = "#000000";
+                            keyword_area_select.style.border = "1px solid #000000";
+                        } else {
+                            keyword_area.style.color = "#c2c2c2";
+                            keyword_area_select.style.color = "#c2c2c2";
+                            keyword_area_select.style.border = "1px solid #c2c2c2";
+                        }
+                    });
+                });
+            </script>
+            <p></p>
+            </div>
+        </div>
+        <button type="submit" class="ans" onclick=location.href="{{ url_for('search_ans') }}" style="color: rgb(0, 0, 0);">検索</button>
+    </form>
+    <button type="submit" class="home" onclick=location.href="{{ url_for('index') }}">ホームに戻る</button>
+    <p class="kurashiru">引用元&nbsp;クラシル</p>
+    <div class="footer">
+        <p id="copyright">© 2023 Ritsuki Ishikawa</p>
+    </div>
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename='hambergermenu.js') }}"></script>
+    <script>
+        function uncooked() {
+            alert("Comming Soon");
+        }
+    </script>
+</body>
+
+</html>

@@ -9,6 +9,12 @@ from oauth2client.service_account import ServiceAccountCredentials
 app = Flask(__name__)
 
 @app.route('/')
+def index():
+    return render_template(
+        'index.html'
+    )
+
+@app.route('/home')
 def home():
     return render_template(
         'home.html'
@@ -18,7 +24,7 @@ def home():
 @app.route('/ans',methods=['GET','POST'])
 def ans():
     if request.method == 'POST':
-        file_path = "sample.xlsx"
+        file_path = "./sample.xlsx"
         wb = excel.load_workbook(file_path, data_only=True)
         sheet1 = wb["ans1"]   
         sheet2 = wb["ans2"] 
@@ -87,11 +93,107 @@ def explanation():
     return render_template(
         'explanation.html'
     )
+    
 @app.route('/form')
 def form():
     return render_template(
         'form.html'
     )
+    
+@app.route('/search_home')
+def search_home():
+    f = open('./food_list.txt','r')
+    foods = f.readlines()
+    return render_template(
+        'search_home.html',foods = foods
+    )
+    
+@app.route('/search_ans',methods=['GET','POST'])
+def search_ans():
+    if request.method == 'POST':
+        f = open('./food_data.txt','r')
+        foods_data = f.readlines()
+        
+        output_data = []
+        select_item = []
+        
+        review_area_select = request.form.get('review_area_select')
+        review_flag = request.form.get('review_flag')
+        if review_flag == 'on':
+            select_item.append("レビュー: "+review_area_select+" 以上")
+        
+        cooktime_area_select = request.form.get('cooktime_area_select')
+        cooktime_flag = request.form.get('cooktime_flag')
+        cooktime_radio = request.form.get('cooktime_radio')
+        if cooktime_flag == 'on':
+            if cooktime_radio == "1":
+                select_item.append("調理時間: "+cooktime_area_select+"分 以上")
+            else:
+                select_item.append("調理時間: "+cooktime_area_select+"分 以下")
+            
+        cost_area_select = request.form.get('cost_area_select')
+        cost_flag = request.form.get('cost_flag')
+        if cost_flag == 'on':
+            select_item.append("費用目安: "+cost_area_select+"円 以下")
+            
+        keyword_area_select = list(request.form.get('keyword_area_select').split('　'))
+        keyword_flag = request.form.get('keyword_flag')
+        if keyword_flag == 'on':
+            select_item.append("キーワード: "+ ' '.join(keyword_area_select))
+        
+        
+        search_food = request.form.getlist('search_food')
+        #data = ['URL','レシピ名','画像のパス','レビュー評価','調理時間','費用','材料']
+        for data in foods_data:
+            data = data.split(',')
+            data[-1] = data[-1].replace('\n', '')
+            jedge = 1
+            if search_food != []:
+                for i in range(len(search_food)):
+                    if not(search_food[i].replace('\r\n','') in data):
+                        jedge = 0
+                        break
+            if review_flag == 'on':
+                if float(data[3]) < float(review_area_select):
+                    jedge = 0
+            if cooktime_flag == 'on':
+                if cooktime_radio == "1":
+                    if int(data[4]) < int(cooktime_area_select):
+                        jedge = 0
+                else:
+                    if int(data[4]) > int(cooktime_area_select):
+                        jedge = 0
+                    
+            if cost_flag == 'on':
+                if int(data[5]) > int(cost_area_select):
+                        jedge = 0
+            
+            if keyword_flag == 'on':
+                if keyword_area_select != []:
+                    for keyword in keyword_area_select:
+                        if not(keyword in data[1]):
+                            jedge = 0
+                            break
+                        
+            if jedge == 1:
+                output_data.append(data)
+            
+        random.shuffle(output_data)     
+        return render_template(
+            'search_ans.html', output_data = output_data, select_item = select_item, search_food = search_food
+        ) 
+    else:
+        f2 = open('./data_collect/food_list.txt','r')
+        foods = f2.readlines()
+        return render_template(
+            'search_home.html',foods = foods
+        )
+    
+    
+
+
+    
+
 @app.route('/submit',methods=['POST'])
 def submit():
     yourname = request.form['yourname']

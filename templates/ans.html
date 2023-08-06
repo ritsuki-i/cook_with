@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='ans.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='cook_with.jpg') }}">
     <title>cook_with</title>
     <meta property="og:url" content="https://cw.pythonanywhere.com" />
     <meta property="og:type" content="website" />
@@ -16,10 +16,33 @@
     <meta property="description" content="欲しい栄養素が摂れる料理レシピがすぐわかる！料理検索サイト" />
 </head>
 <body>
-    <div class = "back" style="background: url(../static/back.jpeg) 0% 0%">
-        <img src="{{ url_for('static', filename='cook_with.png') }}" style="width: 200px;">
-        <p>COOK_WITH</p>
-        <p class="title">欲しい栄養素が摂れる料理がすぐわかる！料理検索サイト</p>
+    <div class="back" style="background: url(../static/back.jpeg) 0% 0%">
+        <nav class="header__nav nav" id="js-nav">
+            <ul class="nav__items nav-items">
+                <li class="nav-items__item"><a href="{{ url_for('index') }}">ホーム</a></li>
+                <li class="nav-items__item"><a href="{{ url_for('how') }}">使い方</a></li>
+                <li class="nav-items__item"><a href="{{ url_for('tec') }}">システム説明</a></li>
+                <li class="nav-items__item"><a href="{{ url_for('explanation') }}">栄養素説明</a></li>
+                <li class="nav-items__item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+            </ul>
+        </nav>
+        <button class="header__hamburger hamburger" id="js-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <img src="{{ url_for('static', filename='cook_with.jpg') }}" style="width: 200px;" alt="cookwithのロゴ">
+        <p class="title">COOK_WITH</p>
+        <p class="subtitle">欲しい栄養素が摂れる料理がすぐわかる！料理レシピ検索サイト</p>
+    </div>
+    <div class="contents">
+        <ul class="menu">
+            <li class="item"><a href="{{ url_for('index') }}">ホーム</a></li>
+            <li class="item"><a href="{{ url_for('how') }}">使い方</a></li>
+            <li class="item"><a href="{{ url_for('tec') }}">システム説明</a></li>
+            <li class="item"><a href="{{ url_for('explanation') }}">栄養素説明</a></li>
+            <li class="item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+        </ul>
     </div>
     <p style="background-color: aqua; width: 120px; text-align: center;">☆検索ワード</p>
     <p style="background-color: rgba(30, 255, 0, 0.616); width: 150px; text-align: center;">一番欲しい栄養素</p>
@@ -60,10 +83,11 @@
         </table>
     {% endif %}
     
-    <button type="submit"  onclick=location.href="{{ url_for('home') }}">ホームに戻る</button>
+    <button type="submit"  id="submit_button" onclick=location.href="{{ url_for('home') }}">戻る</button>
     <p class="kurashiru">引用元&nbsp;クラシル</p>
     <div class="footer">
         <p id="copyright">© 2022 Ritsuki Ishikawa & Ryoka Hamochi</p>
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='hambergermenu.js') }}"></script>
 </body>
 </html>

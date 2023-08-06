@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="back">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='cook_with.jpg') }}"  alt="cookwithのロゴ">
+        <img src="{{ url_for('static', filename='COOKWITH_g.png') }}"  alt="cookwithのロゴ">
+    </div>
+    <p class="title">COOK_WITH</p>
+    <p class="subtitle">作りたい料理がすぐわかる！料理レシピ検索サイト</p>
+</div>
 <div class="form">
     <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
-    <h2 style="background-color: rgba(30, 255, 0, 0.616);">アンケートフォーム</h2>
+    <h2 style="background-color: rgba(30, 255, 0, 0.616);">お問い合わせ</h2>
     <form action="{{ url_for('submit') }}" method="post">
     
         <div class="item">
@@ -11,7 +19,7 @@
         </div>
     
         <div class="item">
-            <label for="gender" class="Q">性別（必須）：</label><br>
+            <label for="gender" class="Q">性別：</label><br>
             <label class="gender"><input type="radio" name="gender" class="gender" value="男性">男性</label>
             <label class="gender"><input type="radio" name="gender" class="gender" value=女性">女性</label>
         </div>
@@ -36,8 +44,8 @@
         </div>
     
         <div class="item">
-            <label for="comment" class="Q">感想（必須）：<span style="color: crimson;">{{ message1 }}</span><br></label>
-            <textarea id="comment" name="comment" placeholder="ここには自由に感想を記入してください"></textarea>
+            <label for="comment" class="Q">内容（必須）：<span style="color: crimson;">{{ message1 }}</span><br></label>
+            <textarea id="comment" name="comment" placeholder="自由に感想を記入してください"></textarea>
         </div>
     
         <div class="btn">
@@ -47,7 +55,7 @@
     
     </form>
     <p>{{ message2 }}</p>
-    <button type="submit" class="home" onclick=location.href="{{ url_for('home') }}">ホームに戻る</button>
+    <button type="submit" class="home" onclick=location.href="{{ url_for('index') }}">ホームに戻る</button>
 </div>
 
 {% endblock %}

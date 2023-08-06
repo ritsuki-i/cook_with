@@ -1,6 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-
+<div class="back" style="background: url(../static/back.jpeg) 0% 0%">
+    <nav class="header__nav nav" id="js-nav">
+        <ul class="nav__items nav-items">
+            <li class="nav-items__item"><a href="{{ url_for('index') }}">ホーム</a></li>
+            <li class="nav-items__item"><a href="{{ url_for('how') }}">使い方</a></li>
+            <li class="nav-items__item"><a href="{{ url_for('tec') }}">システム説明</a></li>
+            <li class="nav-items__item"><a href="{{ url_for('explanation') }}">栄養素説明</a></li>
+            <li class="nav-items__item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+        </ul>
+    </nav>
+    <button class="header__hamburger hamburger" id="js-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <img src="{{ url_for('static', filename='cook_with.jpg') }}" style="width: 200px;" alt="cookwithのロゴ">
+    <p class="title">COOK_WITH</p>
+    <p class="subtitle">欲しい栄養素が摂れる料理がすぐわかる！料理レシピ検索サイト</p>
+</div>
+<div class="contents">
+    <ul class="menu">
+        <li class="item"><a href="{{ url_for('index') }}">ホーム</a></li>
+        <li class="item"><a href="{{ url_for('how') }}">使い方</a></li>
+        <li class="item"><a href="{{ url_for('tec') }}">システム説明</a></li>
+        <li class="item"><a href="{{ url_for('explanation') }}">栄養素説明</a></li>
+        <li class="item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+    </ul>
+</div>
 <div class="explanation">
     <h2 style="background-color: rgba(30, 255, 0, 0.616);">栄養素説明</h2>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -37,6 +64,6 @@
     </ol>
     <p style="color: crimson;">
         ※栄養素は基本的にバランスをよく摂取するべきものなので、必要だからといって偏った栄養素を摂ったりするのはお勧めしません。過剰摂取は病気につながります。不足している栄養素を摂るようにしましょう。</p>
-    <button type="submit" class="home" onclick=location.href="{{ url_for('home') }}">ホームに戻る</button>
+    <button type="submit" class="home" onclick=location.href="{{ url_for('home') }}">戻る</button>
 </div>
 {% endblock %}

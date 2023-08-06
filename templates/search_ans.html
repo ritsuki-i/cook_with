@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='search_home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='select2.min.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='COOKWITH_g.png') }}">
+    <title>cook_with</title>
+    <meta property="og:url" content="https://cw.pythonanywhere.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="COOK_WITH" />
+    <meta property="og:description" content="使いたい食材を使う料理レシピがすぐわかる！料理検索サイト" />
+    <meta property="og:site_name" content="COOK_WITH" />
+    <meta property="og:image" content="https://cw.pythonanywhere.com/static/cook_with.png" />
+    <meta property="description" content="使いたい食材を使う料理レシピがすぐわかる！料理検索サイト" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='select2.min.js') }}"></script>
+</head>
+
+<body>
+    <div class="back" style="background: url(../static/green_back.jpg) 0% 0%">
+        <nav class="header__nav nav" id="js-nav">
+            <ul class="nav__items nav-items">
+                <li class="nav-items__item"><a href="{{ url_for('index') }}">ホーム</a></li>
+                <li class="nav-items__item"><a onclick="uncooked();">使い方</a></li>
+                <li class="nav-items__item"><a onclick="uncooked();">システム説明</a></li>
+                <li class="nav-items__item"><a onclick="uncooked();">栄養素説明</a></li>
+                <li class="nav-items__item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+            </ul>
+        </nav>
+        <button class="header__hamburger hamburger" id="js-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <img src="{{ url_for('static', filename='COOKWITH_g.png') }}" style="width: 200px; " alt="cookwithのロゴ">
+        <p class="title">COOK_WITH</p>
+        <p class="subtitle">使いたい食材を使う料理がすぐわかる！料理レシピ検索サイト</p>
+    </div>
+    <div class="contents">
+        <ul class="menu">
+            <li class="item"><a href="{{ url_for('index') }}">ホーム</a></li>
+            <li class="item"><a onclick="uncooked();">使い方</a></li>
+            <li class="item"><a onclick="uncooked();">システム説明</a></li>
+            <li class="item"><a onclick="uncooked();">栄養素説明</a></li>
+            <li class="item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+        </ul>
+        <a href="{{ url_for('home') }}">欲しい栄養素で検索する</a>
+    </div>
+    <p style="background-color: aqua; width: 120px; text-align: center;">☆検索ワード</p>
+    <p style="background-color: rgba(30, 255, 0, 0.616); width: 150px; text-align: center;">使いたい食材</p>
+    <ul>
+        {% for food in search_food %}
+            <li>{{ food }}</li>
+        {% endfor %}
+    </ul>
+    <p style="background-color: rgba(30, 255, 0, 0.616); width: 180px; text-align: center;">フィルター選択</p>
+    <ul>
+        {% if select_item==[] %}
+            <li>フィルター選択なし</li>
+        {% else %}
+            {% for item in select_item %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+
+    <hr color='#1eff00'>
+
+    {% if output_data==[] %}
+    <p>条件を満たすレシピは見つかりませんでした。</p>
+    {% else %}
+        <ul class="ans_item_ul">
+            {% for data in output_data %}
+            <li class="ans_item_li"> 
+                <div class="ans_item">
+                    <a href="{{ data[0] }}" target="_blank" rel="noopener">
+                        <img src="{{ data[2] }}" alt="recipe_img" class="recipe_img">
+                    </a>
+                    <p>
+                        <a href="{{ data[0] }}" target="_blank" rel="noopener">{{ data[1] }}</a>
+                    </p>
+                    <div class="filter_item">
+                        {% if data[3]!="-1.0" %}
+                            <p>レビュー：{{ data[3] }}</p>
+                        {% else %}
+                            <p>レビュー：NaN</p>
+                        {% endif%}
+                        <p>調理時間：{{ data[4] }}分</p>
+                        <p>費用：{{ data[5] }}円程度</p>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <button type="submit" class="submit" onclick=location.href="{{ url_for('search_home')}}">戻る</button>
+    <p class="kurashiru">引用元&nbsp;クラシル</p>
+    <div class="footer">
+        <p id="copyright">© 2023 Ritsuki Ishikawa</p>
+    </div>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='hambergermenu.js') }}"></script>
+    <script>
+        function uncooked() {
+            alert("Comming Soon");
+        }
+    </script>
+</body>
+
+</html>
