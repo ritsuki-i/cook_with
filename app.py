@@ -1,12 +1,17 @@
-import openpyxl as excel
 from flask import Flask
 from flask import render_template , request
 import random
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import pandas as pd
 
 
 app = Flask(__name__)
+
+def float_range(start, stop, step):
+    while start < stop:
+        yield round(start, 10)  
+        start += step
 
 @app.route('/')
 def index():
@@ -14,72 +19,81 @@ def index():
         'index.html'
     )
 
-@app.route('/home')
-def home():
+@app.route('/nutrition_home')
+def nutrition_home():
+    nutrition_name={"noname":"欲しい栄養素を選択してください","H":"タンパク質","I":"脂質","J":"炭水化物","K":"食物繊維","L":"カリウム","M":"カルシウム","N":"鉄","O":"亜鉛","P":"ビタミンA","Q":"ビタミンB1","R":"ビタミンB2","S":"ビタミンC","T":"ビタミンD","U":"ビタミンE"}
     return render_template(
-        'home.html'
+        'nutrition_home.html',nutrition_name = nutrition_name
+    )
+
+@app.route('/search_home')
+def search_home():
+    
+    reviews = list(float_range(4.0, 5.0, 0.2))
+    f = open('./data/food_list.txt','r', encoding='utf-8')
+    foods = f.readlines()
+    return render_template(
+        'search_home.html',foods = foods,reviews = reviews
     )
     
 
 @app.route('/ans',methods=['GET','POST'])
 def ans():
     if request.method == 'POST':
-        file_path = "./sample.xlsx"
-        wb = excel.load_workbook(file_path, data_only=True)
-        sheet1 = wb["ans1"]   
-        sheet2 = wb["ans2"] 
-        get1 = request.form.get('choose1')
-        get2 = request.form.get('choose2')
-        get3 = request.form.get('choose3')
-        get4 = request.form.get('choose4')
+        food_nutrition_amount = pd.read_csv("./data/food_nutrition_amount.csv")
+        food_nutrition_ratio = pd.read_csv("./data/food_nutrition_ratio.csv")
+        get_want_most = request.form.get('want_most')
+        get_want_second = request.form.get('want_second')
+        get_want_third = request.form.get('want_third')
+        get_display_method = request.form.get('display_method')
         d_a={"H":60,"I":100,"J":100,"K":20,"L":2000,"M":700,"N":8,"O":9,"P":700,"Q":1.1,"R":1.3,"S":100,"T":8.5,"U":5}
-        d_b={"H":"タンパク質","I":"脂質","J":"炭水化物","K":"食物繊維","L":"カリウム","M":"カルシウム","N":"鉄","O":"亜鉛","P":"ビタミンA","Q":"ビタミンB1","R":"ビタミンB2","S":"ビタミンC","T":"ビタミンD","U":"ビタミンE","noname":"選択なし"}
+        nutrition_name={"H":"タンパク質","I":"脂質","J":"炭水化物","K":"食物繊維","L":"カリウム","M":"カルシウム","N":"鉄","O":"亜鉛","P":"ビタミンA","Q":"ビタミンB1","R":"ビタミンB2","S":"ビタミンC","T":"ビタミンD","U":"ビタミンE","noname":"選択なし"}
         d_c={"random":"ランダム","sort1":"栄養価割合（降順）","sort2":"栄養素量実数値（降順）"}
         recipes = []
         recipesx = []
-        name1 = d_b[get1]
-        name2 = d_b[get2]
-        name3 = d_b[get3]
-        if get4==None:
+        want_most_nutrition = nutrition_name[get_want_most]
+        want_second_nutrition = nutrition_name[get_want_second]
+        want_third_nutrition = nutrition_name[get_want_third]
+        if get_display_method==None:
             comment1="※表示形式を選択しないと検索できません"
-            return render_template('home.html',comment1=comment1)
-        elif (get1=="noname" and get2!="noname" and get3!="noname") or (get1=="noname" and get2!="noname" and get3=="noname") or (get1=="noname" and get2=="noname" and get3!="noname"):
-            comment2="※ステップ2を選択する場合、ステップ１を選択してください"
+            return render_template('nutrition_home.html',comment1=comment1)
+        elif (get_want_most=="noname" and get_want_second!="noname" and get_want_third!="noname") or (get_want_most=="noname" and get_want_second!="noname" and get_want_third=="noname") or (get_want_most=="noname" and get_want_second=="noname" and get_want_third!="noname"):
+            comment2="※ステップ2を選択する場合、ステップ1を選択してください"
             return render_template('home.html',comment2=comment2)
         else:
-            format = d_c[get4]
+            format = d_c[get_display_method]
             for i in range(2,100,1):
-                in1 = get1+str(i)
-                in2 = get2+str(i)
-                in3 = get3+str(i)
+                in1 = get_want_most+str(i)
+                in2 = get_want_second+str(i)
+                in3 = get_want_third+str(i)
                 ans1 = "A"+str(i)
                 ans2 = "B"+str(i)
-                if get4=="random":
-                    if (get1=="noname" or sheet1[in1].value>=d_a[get1]) and (get2=="noname" or sheet1[in2].value>=d_a[get2]) and (get3=="noname" or sheet1[in3].value>=d_a[get3]):
-                        add_row = {"url":sheet1[ans1].value,"name":sheet1[ans2].value}
+                if get_display_method=="random":
+                    if (get_want_most=="noname" or food_nutrition_amount[in1].value>=d_a[get_want_most]) and (get_want_second=="noname" or food_nutrition_amount[in2].value>=d_a[get_want_second]) and (get_want_third=="noname" or food_nutrition_amount[in3].value>=d_a[get_want_third]):
+                        add_row = {"url":food_nutrition_amount[ans1].value,"name":food_nutrition_amount[ans2].value}
                         recipes.append(add_row)
                         random.shuffle(recipes)
-                elif get4=="sort2":
-                    if get1=="noname" and get2=="noname" and get3=="noname":
-                        add_row = {"url":sheet1[ans1].value,"name":sheet1[ans2].value}
+                elif get_display_method=="sort2":
+                    if get_want_most=="noname" and get_want_second=="noname" and get_want_third=="noname":
+                        add_row = {"url":food_nutrition_amount[ans1].value,"name":food_nutrition_amount[ans2].value}
                         recipes.append(add_row)
                         random.shuffle(recipes)
                     else:
-                        add_row1 = {"url":sheet1[ans1].value,"name":sheet1[ans2].value,"key":int(sheet1[in1].value)}
+                        add_row1 = {"url":food_nutrition_amount[ans1].value,"name":food_nutrition_amount[ans2].value,"key":int(food_nutrition_amount[in1].value)}
                         recipesx.append(add_row1)
                         recipesx = sorted(recipesx,key=lambda x:x["key"],reverse=True)
                         recipes=recipesx[0:9]
                 else:
-                    if get1=="noname" and get2=="noname" and get3=="noname":
-                        add_row = {"url":sheet2[ans1].value,"name":sheet2[ans2].value}
+                    if get_want_most=="noname" and get_want_second=="noname" and get_want_third=="noname":
+                        add_row = {"url":food_nutrition_ratio[ans1].value,"name":food_nutrition_ratio[ans2].value}
                         recipes.append(add_row)
                         random.shuffle(recipes)
                     else:
-                        add_row1 = {"url":sheet2[ans1].value,"name":sheet2[ans2].value,"key":sheet2[in1].value}
+                        add_row1 = {"url":food_nutrition_ratio[ans1].value,"name":food_nutrition_ratio[ans2].value,"key":food_nutrition_ratio[in1].value}
                         recipesx.append(add_row1)
                         recipesx = sorted(recipesx,key=lambda x:x["key"],reverse=True)
                         recipes=recipesx[0:9]
-            return render_template('ans.html', name1=name1,name2=name2,name3=name3,format=format,recipes=recipes)
+            return render_template('ans.html', name1=want_most_nutrition,name2=want_second_nutrition,name3=want_third_nutrition,format=format,recipes=recipes)
     else:
         return render_template('home.html')
     
@@ -100,18 +114,10 @@ def form():
         'form.html'
     )
     
-@app.route('/search_home')
-def search_home():
-    f = open('./food_list.txt','r')
-    foods = f.readlines()
-    return render_template(
-        'search_home.html',foods = foods
-    )
-    
 @app.route('/search_ans',methods=['GET','POST'])
 def search_ans():
     if request.method == 'POST':
-        f = open('./food_data.txt','r')
+        f = open('./data/food_data.txt','r', encoding='utf-8')
         foods_data = f.readlines()
         
         output_data = []
@@ -204,7 +210,7 @@ def submit():
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name(json_file, scope)
     gc = gspread.authorize(credentials)
-    wks = gc.open('from').sheet1
+    wks = gc.open('from').food_nutrition_amount
     
     if request.method == 'POST':
         if comment == "":

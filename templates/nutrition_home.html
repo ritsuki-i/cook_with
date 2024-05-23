@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hamburger_menu.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/cook_with.jpg') }}">
+    <title>cook_with</title>
+    <meta property="og:url" content="https://cw.pythonanywhere.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="COOK_WITH" />
+    <meta property="og:description" content="欲しい栄養素が摂れる料理レシピがすぐわかる！料理検索サイト" />
+    <meta property="og:site_name" content="COOK_WITH" />
+    <meta property="og:image" content="https://cw.pythonanywhere.com/static/cook_with.png" />
+    <meta property="description" content="欲しい栄養素が摂れる料理レシピがすぐわかる！料理検索サイト" />
+</head>
+
+<body>
+    <div class="back" style="background: url(../static/img/back.jpeg) 0% 0%">
+        <nav class="header__nav nav" id="js-nav">
+            <ul class="nav__items nav-items">
+                <li class="item"><a href="{{ url_for('index') }}">ホーム</a></li>
+                <li class="item"><a href="{{ url_for('nutrition_home') }}">欲しい栄養素で検索</a></li>
+                <li class="item"><a href="{{ url_for('search_home') }}">使いたい食材で検索</a></li>
+                <li class="item"><a href="{{ url_for('form') }}">お問い合わせ</a></li>
+            </ul>
+        </nav>
+        <button class="header__hamburger hamburger" id="js-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <img src="{{ url_for('static', filename='img/cook_with.jpg') }}" style="width: 200px;"
+            alt="cookwithのロゴ">
+        <p class="title">COOK_WITH</p>
+        <p class="subtitle">欲しい栄養素が摂れる料理がすぐわかる！料理レシピ検索サイト</p>
+    </div>
+    <div class="contents">
+        <ul class="menu">
+            <li class="item"><a href="{{ url_for('index') }}">ホーム</a></li>
+            <li class="item"><a href="{{ url_for('nutrition_home') }}">欲しい栄養素で検索</a></li>
+            <li class="item"><a href="{{ url_for('search_home') }}">使いたい食材で検索</a></li>
+            <li class="item"><a href="{{ url_for('form') }}">お問い合わせ</a></li>
+        </ul>
+    </div>
+
+    <form action="/ans" method="POST">
+        <div class="backg" style="background: url(../static/img/backg.jpeg) 0% 0%">
+            <p class="explain">☆ステップ1 まず、最優先する栄養素を選択してください<br><span style="color: rgb(255, 0, 51);">{{ comment2 }}</span></p>
+            <div class="cp_ipselect1">
+                <select name="want_most" size="1" id="select1" class="cp_sl02">
+                    {% for nutrition_key in nutrition_name.keys() %}
+                        {% if nutrition_key != "noname" %}                       
+                            <option value="{{ nutrition_key }}">{{ nutrition_name[nutrition_key] }}</option>
+                        {% else %}
+                            <option value="{{ nutrition_key }}" selected>{{ nutrition_name[nutrition_key] }}</option>
+                        {% endif %} 
+                    {% endfor %}
+                </select>
+            </div>
+            <p class="explain">☆ステップ2 次に、他に欲しい栄養素があれば選択してください(２つまで)</p>
+            <div class="cp_ipselect2">
+                <select name="want_second" size="1" id="select2" class="cp_sl02">
+                    {% for nutrition_key in nutrition_name.keys() %}
+                        {% if nutrition_key != "noname" %}                       
+                            <option value="{{ nutrition_key }}">{{ nutrition_name[nutrition_key] }}</option>
+                        {% else %}
+                            <option value="{{ nutrition_key }}" selected>{{ nutrition_name[nutrition_key] }}</option>
+                        {% endif %} 
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="cp_ipselect3">
+                <select name="want_third" size="1" id="select3" class="cp_sl02">
+                    {% for nutrition_key in nutrition_name.keys() %}
+                        {% if nutrition_key != "noname" %}                       
+                            <option value="{{ nutrition_key }}">{{ nutrition_name[nutrition_key] }}</option>
+                        {% else %}
+                            <option value="{{ nutrition_key }}" selected>{{ nutrition_name[nutrition_key] }}</option>
+                        {% endif %} 
+                    {% endfor %}
+                </select>
+                <span class="cp_sl02_highlight"></span>
+                <span class="cp_sl02_selectbar"></span>
+            </div>
+            <p class="explain">☆ステップ3 最後に、結果の表示形式を選択してください<span style="color: rgb(255, 0, 51);">(必須){{ comment1 }}</span></p>
+            <div class="cp_ipselect3">
+                <select name="display_method" size="1" class="cp_sl02" required>
+                    <option disabled>表示形式を選択してください</option>
+                    <option value="random">ランダム</option>
+                    <option value="sort1">栄養価割合（降順）</option>
+                    <option value="sort2">栄養素量実数値（降順）</option>
+                </select>
+                <span class="cp_sl02_highlight"></span>
+                <span class="cp_sl02_selectbar"></span>
+            </div>
+        </div>
+        <div class="dont-know">
+            <p>何の栄養素で検索すればいいかわからない！！<br>そんな人は&rarr;<a href="{{ url_for('explanation') }}"
+                    style="color: rgb(0, 162, 255);">こちら</a></p>
+            <button type="submit" class="ans" onclick=location.href="{{ url_for('ans') }}"
+                style="color: rgb(0, 0, 0);">検索</button>
+        </div>
+    </form>
+    <button type="submit" class="home" onclick=location.href="{{ url_for('index') }}">ホームに戻る</button>
+    <p class="kurashiru">引用元&nbsp;クラシル</p>
+    <div class="footer">
+        <p id="copyright">© 2022-2024 Ritsuki Ishikawa,Ryoka Hamochi</p>
+    </div>
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/hamburgermenu.js') }}"></script>
+</body>
+
+</html>

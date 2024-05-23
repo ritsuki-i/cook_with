@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>料理レシピ検索アプリ</title>
+<style>
+/* ベースのスタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    display: flex;
+}
+
+/* ヘッダー */
+header {
+    background-color: #ff6f61;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 2rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+/* サイドメニュー */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding-top: 4rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #ff6f61;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* コンテナ */
+.container {
+    max-width: 800px;
+    margin: 4rem auto 0 auto;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-left: 270px; /* サイドメニューの幅を考慮 */
+}
+
+/* 検索バー */
+.search-bar {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.search-bar input[type="text"] {
+    flex: 1;
+    padding: 0.5rem;
+    border: 2px solid #ff6f61;
+    border-radius: 4px 0 0 4px;
+    font-size: 1rem;
+}
+
+.search-bar button {
+    padding: 0.5rem 1rem;
+    background-color: #ff6f61;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #ff4b3a;
+}
+
+/* プルダウンメニュー */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.dropdown select {
+    padding: 0.5rem;
+    border: 2px solid #ff6f61;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.dropdown::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* レシピカード */
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: auto;
+}
+
+.recipe-card .content {
+    padding: 1rem;
+}
+
+.recipe-card .content h2 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    color: #ff6f61;
+}
+
+.recipe-card .content p {
+    margin: 0;
+    font-size: 1rem;
+    color: #666;
+}
+
+.recipe-card .content a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #ff6f61;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.recipe-card .content a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<header>料理レシピ検索アプリ</header>
+
+<div class="sidebar">
+    <h2>サイドメニュー</h2>
+    <ul>
+        <li><a href="#">過去の検索</a></li>
+        <li><a href="#">おすすめレシピ</a></li>
+        <li><a href="#">お気に入り</a></li>
+        <li><a href="#">ランキング</a></li>
+    </ul>
+</div>
+
+<div class="container">
+    <div class="search-bar">
+        <input type="text" placeholder="レシピを検索...">
+        <button>検索</button>
+    </div>
+
+    <div class="dropdown">
+        <select>
+            <option value="">カテゴリーを選択...</option>
+            <option value="和食">和食</option>
+            <option value="洋食">洋食</option>
+            <option value="中華">中華</option>
+            <option value="デザート">デザート</option>
+        </select>
+    </div>
+
+    <div class="recipe-card">
+        <img src="example.jpg" alt="レシピ画像">
+        <div class="content">
+            <h2>レシピ名</h2>
+            <p>ここにレシピの簡単な説明が入ります。おいしい料理を作りましょう！</p>
+            <a href="#">詳しく見る</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

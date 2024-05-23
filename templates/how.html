@@ -21,7 +21,7 @@
 </div>
 <div class="contents">
     <ul class="menu">
-        <li class="item"><a href="{{ url_for('home') }}">ホーム</a></li>
+        <li class="item"><a href="{{ url_for('nutrition_home') }}">ホーム</a></li>
         <li class="item"><a href="{{ url_for('how') }}">使い方</a></li>
         <li class="item"><a href="{{ url_for('tec') }}">システム説明</a></li>
         <li class="item"><a href="{{ url_for('explanation') }}">栄養素説明</a></li>
@@ -57,6 +57,6 @@
     <h2 style="text-align: center;">&darr;&darr;&darr;</h2>
     <h2 style="text-align: center;">検索ボタンをクリック！！</h2>
 
-    <button type="submit" class="home" onclick=location.href="{{ url_for('home') }}">戻る</button>
+    <button type="submit" class="home" onclick=location.href="{{ url_for('nutrition_home') }}">戻る</button>
 </div>
 {% endblock %}

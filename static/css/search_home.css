@@ -1,5 +1,4 @@
 .back>.title {
-    font-family: "コーポレート明朝 ver2";
     font-size: 50px;
     display: flex;
     overflow: hidden;
@@ -7,6 +6,7 @@
 }
 
 body {
+    font-family: serif;
     margin: 0;
 }
 

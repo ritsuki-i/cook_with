@@ -1,12 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
 <div class="back">
+    <nav class="header__nav nav" id="js-nav">
+        <ul class="nav__items nav-items">
+            <li class="menu-item"><a href="{{ url_for('index') }}">ホーム</a></li>
+            <li class="menu-item"><a href="{{ url_for('nutrition_home') }}">欲しい栄養素で検索</a></li>
+            <li class="menu-item"><a href="{{ url_for('search_home') }}">使いたい食材で検索</a></li>
+            <li class="menu-item"><a href="{{ url_for('form') }}">お問い合わせ</a></li>
+        </ul>
+    </nav>
+    <button class="header__hamburger hamburger" id="js-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
     <div class="logo">
-        <img src="{{ url_for('static', filename='cook_with.jpg') }}"  alt="cookwithのロゴ">
-        <img src="{{ url_for('static', filename='COOKWITH_g.png') }}"  alt="cookwithのロゴ">
+        <img src="{{ url_for('static', filename='img/cook_with.jpg') }}"  alt="cookwithのロゴ">
+        <img src="{{ url_for('static', filename='img/COOKWITH_g.png') }}"  alt="cookwithのロゴ">
     </div>
     <p class="title">COOK_WITH</p>
     <p class="subtitle">作りたい料理がすぐわかる！料理レシピ検索サイト</p>
+</div>
+<div class="contents">
+    <ul class="menu">
+        <li class="menu-item"><a href="{{ url_for('index') }}">ホーム</a></li>
+        <li class="menu-item"><a href="{{ url_for('nutrition_home') }}">欲しい栄養素で検索</a></li>
+        <li class="menu-item"><a href="{{ url_for('search_home') }}">使いたい食材で検索</a></li>
+        <li class="menu-item"><a href="{{ url_for('form') }}">お問い合わせ</a></li>
+    </ul>
 </div>
 <div class="form">
     <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">

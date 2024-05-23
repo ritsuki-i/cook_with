@@ -1,0 +1,59 @@
+body{
+    margin: 0;
+    height: 100vh;
+}
+.back{
+    font-family: serif ;
+    margin-top: 5vh;
+    margin-left: 5vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 90vw;
+    height: 90vh;
+}
+.back>.subtitle{
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+}
+.back>.title{
+  font-size: 40px;
+  color: rgb(255, 255, 255);
+}
+.swiper-container {
+    width: 100%;
+    height: 100vh;
+}
+.swiper-wrapper {
+  
+    .swiper-slide {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+}
+@media screen and (max-width: 472px) {
+    .button{
+        position: absolute;
+        bottom: 10vh;
+    }
+    body > div.back > div > a > button{
+        width: 90vw;
+        margin-top: 3vw;
+        margin-bottom: 3vw;
+    }
+}
+@media screen and (min-width: 472px) {
+    .button{
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        bottom: 0;
+    }
+    body > div.back > div > a > button{
+        width: 25vw;
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+}

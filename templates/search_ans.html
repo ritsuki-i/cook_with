@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='search_home.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='select2.min.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='COOKWITH_g.png') }}">
+    <link rel="stylesheet" href="./../static/css/search_home.css">
+    <link rel="stylesheet" href="./../static/css/select2.min.css">
+    <link rel="icon" href="./../static/img/COOKWITH_g.png">
     <title>cook_with</title>
     <meta property="og:url" content="https://cw.pythonanywhere.com" />
     <meta property="og:type" content="website" />
@@ -24,11 +24,10 @@
     <div class="back" style="background: url(../static/green_back.jpg) 0% 0%">
         <nav class="header__nav nav" id="js-nav">
             <ul class="nav__items nav-items">
-                <li class="nav-items__item"><a href="{{ url_for('index') }}">ホーム</a></li>
-                <li class="nav-items__item"><a onclick="uncooked();">使い方</a></li>
-                <li class="nav-items__item"><a onclick="uncooked();">システム説明</a></li>
-                <li class="nav-items__item"><a onclick="uncooked();">栄養素説明</a></li>
-                <li class="nav-items__item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+                <li class="item"><a href="{{ url_for('index') }}">ホーム</a></li>
+                <li class="item"><a href="{{ url_for('nutrition_home') }}">欲しい栄養素で検索</a></li>
+                <li class="item"><a href="{{ url_for('search_home') }}">使いたい食材で検索</a></li>
+                <li class="item"><a href="{{ url_for('form') }}">お問い合わせ</a></li>
             </ul>
         </nav>
         <button class="header__hamburger hamburger" id="js-hamburger">
@@ -43,12 +42,11 @@
     <div class="contents">
         <ul class="menu">
             <li class="item"><a href="{{ url_for('index') }}">ホーム</a></li>
-            <li class="item"><a onclick="uncooked();">使い方</a></li>
-            <li class="item"><a onclick="uncooked();">システム説明</a></li>
-            <li class="item"><a onclick="uncooked();">栄養素説明</a></li>
-            <li class="item"><a href="{{ url_for('form') }}">アンケートフォーム</a></li>
+            <li class="item"><a href="{{ url_for('nutrition_home') }}">欲しい栄養素で検索</a></li>
+            <li class="item"><a href="{{ url_for('search_home') }}">使いたい食材で検索</a></li>
+            <li class="item"><a href="{{ url_for('form') }}">お問い合わせ</a></li>
         </ul>
-        <a href="{{ url_for('home') }}">欲しい栄養素で検索する</a>
+        <a href="{{ url_for('nutrition_home') }}">欲しい栄養素で検索する</a>
     </div>
     <p style="background-color: aqua; width: 120px; text-align: center;">☆検索ワード</p>
     <p style="background-color: rgba(30, 255, 0, 0.616); width: 150px; text-align: center;">使いたい食材</p>
@@ -104,7 +102,7 @@
         <p id="copyright">© 2023 Ritsuki Ishikawa</p>
     </div>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='hambergermenu.js') }}"></script>
+    <script type="text/javascript" src="./../static/js/hamburgermenu.js"></script>
     <script>
         function uncooked() {
             alert("Comming Soon");
