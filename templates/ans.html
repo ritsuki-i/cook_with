@@ -59,26 +59,22 @@
     
 
     {% if recipes==[] %}
-        <table>
-            <tr>
-                <th>レシピURL</th>
-                <th>レシピ名</th>
-            </tr>
-        </table>
-        <p>条件を満たすレシピは見つかりませんでした。</p>
+    <p>条件を満たすレシピは見つかりませんでした。</p>
     {% else %}
-        <table>
-        <tr>
-            <th>レシピ名</th>
-            <th>レシピURL</th>
-        </tr>
-        {% for recipe in recipes %}
-            <tr>
-                <td>{{ recipe.name }}</td>
-                <td><a href="{{ recipe.url }}" style="color: rgb(0, 68, 255);">{{ recipe.url }}</a></td>
-            </tr>
-        {% endfor %}
-        </table>
+        <ul class="ans_item_ul">
+            {% for recipe in recipes  %}
+            <li class="ans_item_li"> 
+                <div class="ans_item">
+                    <a href="{{ recipe.url }}" target="_blank" rel="noopener">
+                        <img src="{{ recipe.image_url }}" alt="recipe_img" class="recipe_img">
+                    </a>
+                    <p>
+                        <a href="{{ recipe.url }}" target="_blank" rel="noopener">{{ recipe.name }}</a>
+                    </p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
     {% endif %}
     
     <button type="submit"  id="submit_button" onclick=location.href="{{ url_for('nutrition_home') }}">戻る</button>

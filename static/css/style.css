@@ -37,6 +37,7 @@ body{
   overflow: hidden;
   color: #fff;
   text-decoration: none;
+  margin-bottom: 5vh;
 }
 .item>a:after {
   position: absolute;
@@ -255,7 +256,7 @@ body{
   text-align: center;
   display: block;
 }
-.item>a{
+.menu .item>a{
   color: #755417;
   text-decoration: none;
   display: block;
@@ -358,10 +359,10 @@ body{
     font-size: 15px;
     padding: 10px 50px;
   }
-  .item{
+  .contents>.menu>.item{
     display: none;
   }
 }
-.item + .item{
+.menu .item + .item{
     border-left: 1px solid rgb(255, 0, 0);
 }

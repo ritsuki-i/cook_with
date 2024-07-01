@@ -31,7 +31,7 @@ def write_to_csv(poster_url_list, csv_file):
     df.to_csv(csv_file, index=None)
 
 
-csv_file_path = 'food_nutritiondata_amount.csv'  # CSVファイル名とパスを適宜設定
+csv_file_path = '../data/food_nutritiondata_amount.csv'  # CSVファイル名とパスを適宜設定
 website_urls = read_urls_from_csv(csv_file_path)
 
 # 各ウェブサイトの画像URLを抽出

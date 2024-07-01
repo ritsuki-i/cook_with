@@ -112,26 +112,23 @@ ul>li{
     display: inline;
     margin-right: 0.5em;
 }
-table th{
-    color: #FF9800;
-    background: #fdedd4;
-    font-size: 25px;
-    padding: 10px;
+
+.ans_item{
+    font-family: canada-type-gibson, 'Noto Sans JP', "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+    width: 18vw;
 }
-table td{
-    padding-top: 10px;
-    padding-bottom: 10px;
+.ans_item_ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 10px 4vw;
 }
-table{
-    table-layout: fixed;
-    width: 98vw;
-    margin: 1vw;
-    border-collapse: collapse;
-    border: solid 3px orange;
-    word-break: break-all;
+.ans_item_li{
+    width: 18vw;
+    margin: 2vw;
 }
-table th, table td{
-    border: solid 0.5px rgba(255, 166, 0, 0.425);
+.recipe_img{
+    width: 18vw;
 }
 /* ハンバーガーメニュー */
 .header__hamburger {
@@ -314,10 +311,10 @@ table th, table td{
       left: 65%;
       bottom: 40px;
   }
-  .item{
+  .menu .item{
     display: none;
   }
 }
-.item+.item {
+.menu .item+.item {
     border-left: 1px solid rgb(255, 0, 0);
 }

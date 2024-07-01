@@ -40,60 +40,54 @@ def search_home():
 @app.route('/ans',methods=['GET','POST'])
 def ans():
     if request.method == 'POST':
-        food_nutrition_amount = pd.read_csv("./data/food_nutrition_amount.csv")
-        food_nutrition_ratio = pd.read_csv("./data/food_nutrition_ratio.csv")
+        food_nutrition_amount = pd.read_csv("./data/food_nutritiondata_amount.csv")
+        food_nutrition_ratio = pd.read_csv("./data/food_nutritiondata_ratio.csv")
         get_want_most = request.form.get('want_most')
         get_want_second = request.form.get('want_second')
         get_want_third = request.form.get('want_third')
         get_display_method = request.form.get('display_method')
-        d_a={"H":60,"I":100,"J":100,"K":20,"L":2000,"M":700,"N":8,"O":9,"P":700,"Q":1.1,"R":1.3,"S":100,"T":8.5,"U":5}
+        nutrition_value={"H":60,"I":100,"J":100,"K":20,"L":2000,"M":700,"N":8,"O":9,"P":700,"Q":1.1,"R":1.3,"S":100,"T":8.5,"U":5}
         nutrition_name={"H":"タンパク質","I":"脂質","J":"炭水化物","K":"食物繊維","L":"カリウム","M":"カルシウム","N":"鉄","O":"亜鉛","P":"ビタミンA","Q":"ビタミンB1","R":"ビタミンB2","S":"ビタミンC","T":"ビタミンD","U":"ビタミンE","noname":"選択なし"}
-        d_c={"random":"ランダム","sort1":"栄養価割合（降順）","sort2":"栄養素量実数値（降順）"}
-        recipes = []
-        recipesx = []
+        get_display_method_list={"random":"ランダム","sort1":"栄養価割合（降順）","sort2":"栄養素量実数値（降順）"}
+        
         want_most_nutrition = nutrition_name[get_want_most]
         want_second_nutrition = nutrition_name[get_want_second]
         want_third_nutrition = nutrition_name[get_want_third]
-        if get_display_method==None:
-            comment1="※表示形式を選択しないと検索できません"
-            return render_template('nutrition_home.html',comment1=comment1)
-        elif (get_want_most=="noname" and get_want_second!="noname" and get_want_third!="noname") or (get_want_most=="noname" and get_want_second!="noname" and get_want_third=="noname") or (get_want_most=="noname" and get_want_second=="noname" and get_want_third!="noname"):
-            comment2="※ステップ2を選択する場合、ステップ1を選択してください"
-            return render_template('home.html',comment2=comment2)
+
+        format = get_display_method_list[get_display_method]
+
+        if get_display_method=="random":
+            #food_nutrition_amountをコピー
+            recipes_df = food_nutrition_amount
+            if (get_want_most!="noname"):
+                recipes_df = recipes_df[recipes_df[want_most_nutrition] > nutrition_value[get_want_most]]
+            if (get_want_second!="noname"):
+                recipes_df = recipes_df[recipes_df[want_second_nutrition] > nutrition_value[get_want_second]]
+            if (get_want_third!="noname"):
+                recipes_df = recipes_df[recipes_df[want_third_nutrition] > nutrition_value[get_want_third]]
+            recipes_df = recipes_df.sample(frac=1).reset_index(drop=True)
+        elif get_display_method=="sort1":
+            #food_nutrition_ratioをコピー
+            recipes_df = food_nutrition_ratio
+            if (get_want_most!="noname"):
+                recipes_df = recipes_df.sort_values(get_want_most)
         else:
-            format = d_c[get_display_method]
-            for i in range(2,100,1):
-                in1 = get_want_most+str(i)
-                in2 = get_want_second+str(i)
-                in3 = get_want_third+str(i)
-                ans1 = "A"+str(i)
-                ans2 = "B"+str(i)
-                if get_display_method=="random":
-                    if (get_want_most=="noname" or food_nutrition_amount[in1].value>=d_a[get_want_most]) and (get_want_second=="noname" or food_nutrition_amount[in2].value>=d_a[get_want_second]) and (get_want_third=="noname" or food_nutrition_amount[in3].value>=d_a[get_want_third]):
-                        add_row = {"url":food_nutrition_amount[ans1].value,"name":food_nutrition_amount[ans2].value}
-                        recipes.append(add_row)
-                        random.shuffle(recipes)
-                elif get_display_method=="sort2":
-                    if get_want_most=="noname" and get_want_second=="noname" and get_want_third=="noname":
-                        add_row = {"url":food_nutrition_amount[ans1].value,"name":food_nutrition_amount[ans2].value}
-                        recipes.append(add_row)
-                        random.shuffle(recipes)
-                    else:
-                        add_row1 = {"url":food_nutrition_amount[ans1].value,"name":food_nutrition_amount[ans2].value,"key":int(food_nutrition_amount[in1].value)}
-                        recipesx.append(add_row1)
-                        recipesx = sorted(recipesx,key=lambda x:x["key"],reverse=True)
-                        recipes=recipesx[0:9]
-                else:
-                    if get_want_most=="noname" and get_want_second=="noname" and get_want_third=="noname":
-                        add_row = {"url":food_nutrition_ratio[ans1].value,"name":food_nutrition_ratio[ans2].value}
-                        recipes.append(add_row)
-                        random.shuffle(recipes)
-                    else:
-                        add_row1 = {"url":food_nutrition_ratio[ans1].value,"name":food_nutrition_ratio[ans2].value,"key":food_nutrition_ratio[in1].value}
-                        recipesx.append(add_row1)
-                        recipesx = sorted(recipesx,key=lambda x:x["key"],reverse=True)
-                        recipes=recipesx[0:9]
-            return render_template('ans.html', name1=want_most_nutrition,name2=want_second_nutrition,name3=want_third_nutrition,format=format,recipes=recipes)
+            #food_nutrition_amountをコピー
+            recipes_df = food_nutrition_amount
+            if (get_want_most!="noname"):
+                recipes_df = recipes_df.sort_values(get_want_most)
+
+        # 'URL','画像URL','名前'の抽出
+        recipes_df = recipes_df.loc[:,['URL','画像URL','名前']]
+        # 20個に切り取る   
+        if recipes_df.shape[0] >= 20:
+            recipes_df = recipes_df[0:20]
+        # htmlで取得するためのコラム名の変更
+        recipes_df = recipes_df.rename(columns={'URL': 'url', '画像URL': 'image_url', '名前': 'name'} )
+        # df型から辞書型へ変換
+        recipes = recipes_df.to_dict(orient='records') 
+        
+        return render_template('ans.html', name1=want_most_nutrition,name2=want_second_nutrition,name3=want_third_nutrition,format=format,recipes=recipes)
     else:
         return render_template('home.html')
     
