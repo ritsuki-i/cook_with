@@ -18,7 +18,7 @@ function Nutrition() {
   const navigate = useNavigate();
 
   const [nutritions, setNutritions] = useState([]);
-  const url = 'http://127.0.0.1:5000';
+  const url = 'https://cw.pythonanywhere.com';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,7 +117,7 @@ function Nutrition() {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/nutrition_food_submit', {
+      const response = await fetch('https://cw.pythonanywhere.com/api/nutrition_food_submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -150,7 +150,7 @@ function Nutrition() {
       <div id='nut-title' className='min-vh-100 bg-white'>
         <div className="nut-container">
           <div className="nut-image-container">
-            <img src="./img/nutrition_title_img.png" alt="Nutrition Title" className="nut-image" />
+            <img src={`${process.env.PUBLIC_URL}/img/nutrition_title_img.png`} alt="Nutrition Title" className="nut-image" />
           </div>
           <div className="nut-text-container">
             <h1><span className='text-white'>CO</span>OK_WITH</h1>
@@ -158,7 +158,7 @@ function Nutrition() {
           </div>
         </div>
         <div id='header' className='d-inline-flex p-2'>
-          <img src="./img/COOK_WITH_transparent_black.png" alt="COOK_WITH icon" id='cook-with-icon' />
+          <img src={`${process.env.PUBLIC_URL}/img/COOK_WITH_transparent_black.png`} alt="COOK_WITH icon" id='cook-with-icon' />
           <Header />
         </div>
         <button type="button" class="btn btn-outline-dark" id='view-button' onClick={PageDown}>

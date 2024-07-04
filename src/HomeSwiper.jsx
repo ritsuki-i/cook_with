@@ -16,16 +16,16 @@ function HomeSwiper() {
                 }}
             >
                 <SplideSlide>
-                    <img className="slide-img" src="./img/ex1.jpg" alt=''/>
+                    <img className="slide-img" src={`${process.env.PUBLIC_URL}/img/ex1.jpg`} alt=''/>
                 </SplideSlide>
                 <SplideSlide>
-                    <img className="slide-img" src="./img/ex2.jpg" alt=''/>
+                    <img className="slide-img" src={`${process.env.PUBLIC_URL}/img/ex2.jpg`} alt=''/>
                 </SplideSlide>
                 <SplideSlide>
-                    <img className="slide-img" src="./img/ex3.jpg" alt=''/>
+                    <img className="slide-img" src={`${process.env.PUBLIC_URL}/img/ex3.jpg`} alt=''/>
                 </SplideSlide>
                 <SplideSlide>
-                    <img className="slide-img" src="./img/ex4.jpg" alt=''/>
+                    <img className="slide-img" src={`${process.env.PUBLIC_URL}/img/ex4.jpg`} alt=''/>
                 </SplideSlide>
             </Splide>
 

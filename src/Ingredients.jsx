@@ -217,7 +217,7 @@ function Ingredients() {
             <div id='ing-title' className='min-vh-100 bg-black'>
                 <div className="ing-container">
                     <div className="ing-image-container">
-                        <img src="./img/ingradient_title_img.png" alt="Ingradients Title" className="ing-image" />
+                        <img src={`${process.env.PUBLIC_URL}/img/ingradient_title_img.png`} alt="Ingradients Title" className="ing-image" />
                     </div>
                     <div className="ing-text-container text-white">
                         <h1>COOK_WITH</h1>
@@ -225,7 +225,7 @@ function Ingredients() {
                     </div>
                 </div>
                 <div id='header' className='d-inline-flex p-2'>
-                    <img src="./img/COOK_WITH_transparent_white.png" alt="COOK_WITH icon" id='cook-with-icon' />
+                    <img src={`${process.env.PUBLIC_URL}/img/COOK_WITH_transparent_white.png`} alt="COOK_WITH icon" id='cook-with-icon' />
                     <Header className="invert-colors" />
                 </div>
                 <button type="button" class="btn btn-outline-dark invert-colors" id='view-button' onClick={PageDown}>

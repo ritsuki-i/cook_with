@@ -107,7 +107,7 @@ export default function Contact() {
   return (
     <div className="Contact">
       <div id='header' className='d-inline-flex p-2'>
-        <img src="./img/COOK_WITH_transparent_black.png" alt="COOK_WITH icon" id='cook-with-icon' />
+        <img src={`${process.env.PUBLIC_URL}/img/COOK_WITH_transparent_black.png`} alt="COOK_WITH icon" id='cook-with-icon' />
         <Header />
       </div>
       {isSent ? (
