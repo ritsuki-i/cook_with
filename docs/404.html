@@ -3,17 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Page Not Found</title>
-    <script type="text/javascript">
-        // This script will redirect the user to the correct URL for React Router
-        var currentPath = window.location.pathname;
-        var basePath = '/cook_with';
-
-        // If the basePath is not already included in the currentPath, add it
-        if (!currentPath.startsWith(basePath)) {
-            var redirectTo = window.location.protocol + '//' + window.location.host + basePath + currentPath;
-            window.location.replace(redirectTo);
-        }
-    </script>
+    <meta http-equiv="refresh" content="1; URL=./index.html">
 </head>
 <body>
     <h1>404 Not Found</h1>
