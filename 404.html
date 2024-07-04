@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Page Not Found</title>
+    <script type="text/javascript">
+        // すべてのリクエストをインデックスファイルにリダイレクトするスクリプト
+        var path = window.location.pathname;
+        if (path !== '/') {
+            window.location.replace('/cook_with' + path);
+        }
+    </script>
+</head>
+<body>
+    <h1>404 Not Found</h1>
+    <p>Redirecting...</p>
+</body>
+</html>
