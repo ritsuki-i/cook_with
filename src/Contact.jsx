@@ -123,7 +123,7 @@ export default function Contact() {
         </div>
       ) : (
         <form ref={form} onSubmit={formik.handleSubmit}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', backgroundColor: '#f8f9fa' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', backgroundColor: '#f8f9fa', fontFamily: 'serif' }}>
             <Card sx={{ minWidth: '50vw', height: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
               <CardContent>
                 <div className='d-flex mb-5'>
@@ -182,9 +182,15 @@ export default function Contact() {
                       className="form-control"
                       id="message"
                       name="message"
-                      style={{ fontFamily: 'serif' }}
                       onChange={handleMessageChange}
                       value={formik.values.message}
+                      InputProps={{ 
+                        style: { fontFamily: 'serif' } 
+                      }} 
+                      InputLabelProps={{ 
+                        style: { fontFamily: 'serif' } 
+                      }} 
+                    
                       required
                     ></textarea>
                   </FormControl>

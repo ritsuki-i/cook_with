@@ -18,7 +18,7 @@ function Nutrition() {
   const navigate = useNavigate();
 
   const [nutritions, setNutritions] = useState([]);
-  const url = 'https://cw.pythonanywhere.com';
+  const url = 'http://127.0.0.1:5000';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,7 +117,7 @@ function Nutrition() {
     };
 
     try {
-      const response = await fetch('https://cw.pythonanywhere.com/api/nutrition_food_submit', {
+      const response = await fetch('http://127.0.0.1:5000/api/nutrition_food_submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -167,7 +167,7 @@ function Nutrition() {
           </svg>
         </button>
       </div>
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa', fontFamily: 'serif' }}>
         <Card sx={{ minWidth: '50vw', height: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
           <CardContent>
             <div className='d-flex mb-5'>

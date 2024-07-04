@@ -103,7 +103,7 @@ function NutritionResult() {
             })}
           </ImageList>
         ) : (
-          <p>条件に合うレシピは見つかりませんでした</p>
+          <div style={{width: '70vw', textAlign: 'center'}}>条件に合うレシピは見つかりませんでした</div>
         )}
         {historyData.length > 0 ? (
           <ImageList sx={getHistoryListStyles()} cols={1} id='historyData'>
@@ -138,7 +138,7 @@ function NutritionResult() {
             })}
           </ImageList>
         ) : (
-          <div>履歴がありません</div>
+          <div style={{width: '20vw', textAlign: 'center'}}>履歴がありません</div>
         )}
       </div>
       <button type="button" id='back-button' className="btn btn-outline-dark d-flex align-items-center m-3" onClick={() => navigate('/nutrition')}>

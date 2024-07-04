@@ -235,7 +235,7 @@ function Ingredients() {
                 </button>
             </div>
             <div className="search_element">
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa', fontFamily: 'serif' }}>
                     <Card sx={{ minWidth: '50vw', minHeight: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
                         <CardContent>
                             <div className='d-flex mb-5'>
@@ -312,14 +312,14 @@ function Ingredients() {
                                                     <Typography
                                                         variant="body2"
                                                         onClick={() => setValTime(MIN_min)}
-                                                        sx={{ cursor: 'pointer' }}
+                                                        sx={{ cursor: 'pointer', fontFamily: 'serif' }}
                                                     >
                                                         {MIN_min} min
                                                     </Typography>
                                                     <Typography
                                                         variant="body2"
                                                         onClick={() => setValTime(MAX_min)}
-                                                        sx={{ cursor: 'pointer' }}
+                                                        sx={{ cursor: 'pointer', fontFamily: 'serif' }}
                                                     >
                                                         {MAX_min} max
                                                     </Typography>
@@ -334,8 +334,8 @@ function Ingredients() {
                                                 style={{ color: cooktimeChecked ? '#000000' : '#c2c2c2' }}
                                                 {...(cooktimeChecked && { color: "primary" })}
                                             >
-                                                <ToggleButton value="1">以上</ToggleButton>
-                                                <ToggleButton value="0" checked>以下</ToggleButton>
+                                                <ToggleButton value="1" sx={{ fontFamily: 'serif' }}>以上</ToggleButton>
+                                                <ToggleButton value="0" sx={{ fontFamily: 'serif' }} checked>以下</ToggleButton>
                                             </ToggleButtonGroup>
                                         </Box>
                                         <Box sx={{ display: 'flex', alignItems: 'center', color: costChecked ? '#000000' : '#c2c2c2', flexWrap: 'wrap', gap: 5 }}>
@@ -365,14 +365,14 @@ function Ingredients() {
                                                     <Typography
                                                         variant="body2"
                                                         onClick={() => setValCost(MIN_cost)}
-                                                        sx={{ cursor: 'pointer' }}
+                                                        sx={{ cursor: 'pointer', fontFamily: 'serif' }}
                                                     >
                                                         {MIN_cost} min
                                                     </Typography>
                                                     <Typography
                                                         variant="body2"
                                                         onClick={() => setValCost(MAX_cost)}
-                                                        sx={{ cursor: 'pointer' }}
+                                                        sx={{ cursor: 'pointer', fontFamily: 'serif' }}
                                                     >
                                                         {MAX_cost} max
                                                     </Typography>
@@ -398,7 +398,7 @@ function Ingredients() {
                                                 noValidate
                                                 autoComplete="off"
                                             ><div>
-                                                    <TextField id="keyword_area_select" label="Search field" disabled={!keywordChecked} onChange={handleSearchedFilterChange} value={serchedFilter} />
+                                                    <TextField id="keyword_area_select" label="Search field" disabled={!keywordChecked} onChange={handleSearchedFilterChange} value={serchedFilter} InputProps={{style: { fontFamily: 'serif' }}} InputLabelProps={{style: { fontFamily: 'serif' }}} />
                                                 </div>
                                             </Box>
                                         </Box>
