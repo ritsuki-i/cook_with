@@ -9,8 +9,13 @@ import TextField from '@mui/material/TextField';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Rating from '@mui/material/Rating';
+import FormControl from '@mui/material/FormControl';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import Header from './Header.jsx'
 import Footer from './Footer.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Ingradients.css'
 
 const MAX_min = 180;
 const MIN_min = 10;
@@ -179,7 +184,7 @@ function Ingredients() {
         };
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/ingredients_food_submit', {
+            const response = await fetch('https://cw.pythonanywhere.com/api/ingredients_food_submit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -199,149 +204,213 @@ function Ingredients() {
         }
     };
 
-
+    const PageDown = async () => {
+        window.scrollBy({
+            top: window.innerHeight,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
 
     return (
         <div className="Ingredients">
-            <Header />
-            <div className="search_element">
-                <p>使いたい食材:</p>
-
-                <FoodSelect onDataChange={handleFoodDataChange} ref={FoodSelectRef} />
-
-                <p>フィルター</p>
-
-                <p id="review_area" style={{ color: reviewChecked ? '#000000' : '#c2c2c2' }}>
-                    <Switch
-                        id="review"
-                        checked={reviewChecked}
-                        onChange={handleCheckboxChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                    レビュー:<br />
-                    <Rating name="half-rating" defaultValue={2.5} precision={0.2} size="large" onChange={handleReviewChange} disabled={!reviewChecked} value={val_review} />
-                    以上
-                </p>
-
-                <p id="cooktime_area" style={{ color: cooktimeChecked ? '#000000' : '#c2c2c2' }}>
-                    <Switch
-                        id="cooktime"
-                        checked={cooktimeChecked}
-                        onChange={handleCheckboxChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                    調理時間:
-                    <Box sx={{ width: 250 }}>
-                        <Slider
-                            marks={marks_time}
-                            step={10}
-                            value={val_time}
-                            valueLabelDisplay="auto"
-                            min={MIN_min}
-                            max={MAX_min}
-                            onChange={handleTimeChange}
-                            disabled={!cooktimeChecked}
-                            id="cooktime_area_select"
-                            name="cooktime_area_select"
-                        />
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Typography
-                                variant="body2"
-                                onClick={() => setValTime(MIN_min)}
-                                sx={{ cursor: 'pointer' }}
-                            >
-                                {MIN_min} min
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                onClick={() => setValTime(MAX_min)}
-                                sx={{ cursor: 'pointer' }}
-                            >
-                                {MAX_min} max
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <ToggleButtonGroup
-                        value={upDownToggle}
-                        exclusive
-                        onChange={handleUpDownChange}
-                        aria-label="Platform"
-                        disabled={!cooktimeChecked}
-                        style={{ color: cooktimeChecked ? '#000000' : '#c2c2c2' }}
-                        {...(cooktimeChecked && { color: "primary" })}
-                    >
-                        <ToggleButton value="1">以上</ToggleButton>
-                        <ToggleButton value="0" checked>以下</ToggleButton>
-                    </ToggleButtonGroup>
-                </p>
-
-                <p id="cost_area" style={{ color: costChecked ? '#000000' : '#c2c2c2' }}>
-                    <Switch
-                        id="cost"
-                        checked={costChecked}
-                        onChange={handleCheckboxChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                    費用目安:
-                    <Box sx={{ width: 250 }}>
-                        <Slider
-                            marks={marks_cost}
-                            step={10}
-                            value={val_cost}
-                            valueLabelDisplay="auto"
-                            min={MIN_cost}
-                            max={MAX_cost}
-                            onChange={handleCostChange}
-                            disabled={!costChecked}
-                            id="cost_area_select"
-                            name="cost_area_select"
-                        />
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Typography
-                                variant="body2"
-                                onClick={() => setValCost(MIN_cost)}
-                                sx={{ cursor: 'pointer' }}
-                            >
-                                {MIN_cost} min
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                onClick={() => setValCost(MAX_cost)}
-                                sx={{ cursor: 'pointer' }}
-                            >
-                                {MAX_cost} max
-                            </Typography>
-                        </Box>
-                    </Box>
-                    以下
-                </p>
-
-                <p id="keyword_area" style={{ color: keywordChecked ? '#000000' : '#c2c2c2' }}>
-                    <Switch
-                        id="keyword"
-                        checked={keywordChecked}
-                        onChange={handleCheckboxChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                    キーワード検索:
-                    <Box
-                        component="form"
-                        sx={{
-                            '& .MuiTextField-root': { m: 1, width: '25ch' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                    ><div>
-                            <TextField id="keyword_area_select" label="Search field" disabled={!keywordChecked} onChange={handleSearchedFilterChange} value={serchedFilter} />
-                        </div>
-                    </Box>
-                </p>
-
-                <div>
-                    <button type="button" className="btn btn-outline-dark" onClick={handleSubmit}>検索</button>
-                    <button type="button" className="btn btn-outline-dark" onClick={StorageReset}>リセット</button>
+            <div id='ing-title' className='min-vh-100 bg-black'>
+                <div className="ing-container">
+                    <div className="ing-image-container">
+                        <img src="./img/ingradient_title_img.png" alt="Ingradients Title" className="ing-image" />
+                    </div>
+                    <div className="ing-text-container text-white">
+                        <h1>COOK_WITH</h1>
+                        <p>手持ちの食材から、あなたの食卓に彩りを。</p>
+                    </div>
                 </div>
-
+                <div id='header' className='d-inline-flex p-2'>
+                    <img src="./img/COOK_WITH_transparent_white.png" alt="COOK_WITH icon" id='cook-with-icon' />
+                    <Header className="invert-colors" />
+                </div>
+                <button type="button" class="btn btn-outline-dark invert-colors" id='view-button' onClick={PageDown}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
+                    </svg>
+                </button>
+            </div>
+            <div className="search_element">
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+                    <Card sx={{ minWidth: '50vw', minHeight: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
+                        <CardContent>
+                            <div className='d-flex mb-5'>
+                                <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
+                                    料理レシピ検索
+                                </Typography>
+                                <button type="button" className="btn btn-outline-dark ms-auto" onClick={StorageReset}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-backspace-reverse" viewBox="0 0 16 16">
+                                        <path d="M9.854 5.146a.5.5 0 0 1 0 .708L7.707 8l2.147 2.146a.5.5 0 0 1-.708.708L7 8.707l-2.146 2.147a.5.5 0 0 1-.708-.708L6.293 8 4.146 5.854a.5.5 0 1 1 .708-.708L7 7.293l2.146-2.147a.5.5 0 0 1 .708 0z" />
+                                        <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7.08a2 2 0 0 0 1.519-.698l4.843-5.651a1 1 0 0 0 0-1.302L10.6 1.7A2 2 0 0 0 9.08 1H2zm7.08 1a1 1 0 0 1 .76.35L14.682 8l-4.844 5.65a1 1 0 0 1-.759.35H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7.08z" />
+                                    </svg>&nbsp;検索条件をリセット
+                                </button>
+                            </div>
+                            <Box sx={{ mb: 2 }}>
+                                <FormControl variant="standard" sx={{ m: 1, minWidth: '100%', minHeight: '8vh' }}>
+                                    <Typography variant="p" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
+                                        使いたい食材:
+                                    </Typography>
+                                    <FoodSelect onDataChange={handleFoodDataChange} ref={FoodSelectRef} />
+                                </FormControl>
+                            </Box>
+                            <Box sx={{ mb: 2 }}>
+                                <FormControl variant="standard" sx={{ m: 1, minWidth: '100%', minHeight: '8vh' }}>
+                                    <Typography variant="p" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
+                                        フィルター
+                                    </Typography>
+                                    <Box sx={{ mt: 2 }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', color: reviewChecked ? '#000000' : '#c2c2c2' }}>
+                                            <Switch
+                                                id="review"
+                                                checked={reviewChecked}
+                                                onChange={handleCheckboxChange}
+                                                inputProps={{ 'aria-label': 'controlled' }}
+                                            />
+                                            <Typography sx={{ fontFamily: 'serif', ml: 1 }}>レビュー:</Typography>
+                                            <Rating
+                                                name="half-rating"
+                                                defaultValue={2.5}
+                                                precision={0.2}
+                                                size="large"
+                                                onChange={handleReviewChange}
+                                                disabled={!reviewChecked}
+                                                value={val_review}
+                                                sx={{ mt: 1 }}
+                                            />
+                                            <Typography sx={{ fontFamily: 'serif', color: reviewChecked ? '#000000' : '#c2c2c2', mt: 1 }}>
+                                                以上
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', color: cooktimeChecked ? '#000000' : '#c2c2c2', flexWrap: 'wrap', gap: 5 }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                                <Switch
+                                                    id="cooktime"
+                                                    checked={cooktimeChecked}
+                                                    onChange={handleCheckboxChange}
+                                                    inputProps={{ 'aria-label': 'controlled' }}
+                                                />
+                                                <Typography sx={{ fontFamily: 'serif', ml: 1 }}>調理時間:</Typography>
+                                            </Box>
+                                            <Box sx={{ width: 250 }}>
+                                                <Slider
+                                                    marks={marks_time}
+                                                    step={10}
+                                                    value={val_time}
+                                                    valueLabelDisplay="auto"
+                                                    min={MIN_min}
+                                                    max={MAX_min}
+                                                    onChange={handleTimeChange}
+                                                    disabled={!cooktimeChecked}
+                                                    id="cooktime_area_select"
+                                                    name="cooktime_area_select"
+                                                />
+                                                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                    <Typography
+                                                        variant="body2"
+                                                        onClick={() => setValTime(MIN_min)}
+                                                        sx={{ cursor: 'pointer' }}
+                                                    >
+                                                        {MIN_min} min
+                                                    </Typography>
+                                                    <Typography
+                                                        variant="body2"
+                                                        onClick={() => setValTime(MAX_min)}
+                                                        sx={{ cursor: 'pointer' }}
+                                                    >
+                                                        {MAX_min} max
+                                                    </Typography>
+                                                </Box>
+                                            </Box>
+                                            <ToggleButtonGroup
+                                                value={upDownToggle}
+                                                exclusive
+                                                onChange={handleUpDownChange}
+                                                aria-label="Platform"
+                                                disabled={!cooktimeChecked}
+                                                style={{ color: cooktimeChecked ? '#000000' : '#c2c2c2' }}
+                                                {...(cooktimeChecked && { color: "primary" })}
+                                            >
+                                                <ToggleButton value="1">以上</ToggleButton>
+                                                <ToggleButton value="0" checked>以下</ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', color: costChecked ? '#000000' : '#c2c2c2', flexWrap: 'wrap', gap: 5 }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                                <Switch
+                                                    id="cost"
+                                                    checked={costChecked}
+                                                    onChange={handleCheckboxChange}
+                                                    inputProps={{ 'aria-label': 'controlled' }}
+                                                />
+                                                <Typography sx={{ fontFamily: 'serif', ml: 1 }}>費用目安:</Typography>
+                                            </Box>
+                                            <Box sx={{ width: '100%', maxWidth: 250 }}>
+                                                <Slider
+                                                    marks={marks_cost}
+                                                    step={10}
+                                                    value={val_cost}
+                                                    valueLabelDisplay="auto"
+                                                    min={MIN_cost}
+                                                    max={MAX_cost}
+                                                    onChange={handleCostChange}
+                                                    disabled={!costChecked}
+                                                    id="cost_area_select"
+                                                    name="cost_area_select"
+                                                />
+                                                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                    <Typography
+                                                        variant="body2"
+                                                        onClick={() => setValCost(MIN_cost)}
+                                                        sx={{ cursor: 'pointer' }}
+                                                    >
+                                                        {MIN_cost} min
+                                                    </Typography>
+                                                    <Typography
+                                                        variant="body2"
+                                                        onClick={() => setValCost(MAX_cost)}
+                                                        sx={{ cursor: 'pointer' }}
+                                                    >
+                                                        {MAX_cost} max
+                                                    </Typography>
+                                                </Box>
+                                            </Box>
+                                            <Typography sx={{ fontFamily: 'serif', mt: 1 }}>
+                                                以下
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', color: keywordChecked ? '#000000' : '#c2c2c2' }}>
+                                            <Switch
+                                                id="keyword"
+                                                checked={keywordChecked}
+                                                onChange={handleCheckboxChange}
+                                                inputProps={{ 'aria-label': 'controlled' }}
+                                            />
+                                            <Typography sx={{ fontFamily: 'serif', ml: 1 }}>キーワード検索:</Typography>
+                                            <Box
+                                                component="form"
+                                                sx={{
+                                                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                                }}
+                                                noValidate
+                                                autoComplete="off"
+                                            ><div>
+                                                    <TextField id="keyword_area_select" label="Search field" disabled={!keywordChecked} onChange={handleSearchedFilterChange} value={serchedFilter} />
+                                                </div>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                </FormControl>
+                            </Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <button type="button" className="btn btn-outline-dark m-auto" onClick={handleSubmit}>検索</button>
+                            </Box>
+                        </CardContent>
+                    </Card>
+                </Box>
                 <Footer />
             </div>
         </div>

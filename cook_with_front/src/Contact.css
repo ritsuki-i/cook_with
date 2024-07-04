@@ -1,0 +1,22 @@
+.card {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.title {
+    font-family: serif;
+}
+
+.form-label {
+    font-family: serif;
+}
+
+.sentMessage p {
+    font-family: serif;
+    font-size: 1.2rem;
+}
+
+.sentMessage{
+    height: 80vh;
+    margin-left: 100px;
+}

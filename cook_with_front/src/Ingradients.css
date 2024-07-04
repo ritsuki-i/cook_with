@@ -1,0 +1,56 @@
+.ing-image-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 65vw;
+    height: 100%;
+    overflow: hidden;
+    transform: translateY(22vh);
+}
+
+.ing-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.ing-text-container {
+    font-family: serif;
+    position: absolute;
+    top: 22vw;
+    left: 0;
+    transform: translateX(15vw);
+    padding: 20px;
+}
+
+.ing-text-container h1 {
+    font-size: 3vw;
+    margin: 0;
+}
+
+.ing-text-container p {
+    font-size: 1.5vw;
+    margin: 10px 0 0;
+    transform: translateX(1%);
+}
+
+#cook-with-icon {
+    width: 10%;
+    margin-left: 50px;
+}
+
+.invert-colors {
+    filter: invert(1);
+}
+
+#view-button {
+    position: absolute;
+    left: 50vw;
+    top: 85vh;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}

@@ -1,10 +1,11 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css'
 
 
-function Header({ nowPage }) {
+function Header({ className }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = ["/", "/nutrition", "/ingredients", "/contact"];
   const ItemNames = ["ホーム", "欲しい栄養素で検索", "使いたい食材で検索", "お問い合わせ"];
@@ -35,7 +36,7 @@ function Header({ nowPage }) {
     const navigation = navItems.map((item, index) => (
       <li
         key={index}
-        className={`menu_li ${nowPage === item ? "menu_active" : ""}`}
+        className={`menu_li ${location.pathname === item ? "menu_active" : ""}`}
         onClick={() => navigate(item)}
       >
         {ItemNames[index]}
@@ -48,7 +49,7 @@ function Header({ nowPage }) {
     const navigation = navItems.map((item, index) => (
       <li
         key={index}
-        className={`nav_menu_li ${nowPage === item ? "nav_active" : ""}`}
+        className={`nav_menu_li ${location.pathname === item ? "nav_active" : ""}`}
         onClick={() => handleNavClick(item)}
       >
         {ItemNames[index]}
@@ -70,7 +71,7 @@ function Header({ nowPage }) {
           <ul className="nav_menu_ul">{LoadnavMenu()}</ul>
         </nav>
       </div>
-      <div className="header-menu">
+      <div className={"header-menu " + className}>
         <ul className="menu_ul">{LoadMenu()}</ul>
       </div>
     </div>

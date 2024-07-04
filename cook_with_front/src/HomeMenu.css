@@ -4,6 +4,10 @@ body {
   height: 100vh;
 }
 
+.title{
+  font-family: serif;
+}
+
 .home-title-block {
   font-family: serif;
   margin-top: 5vh;
@@ -28,6 +32,7 @@ body {
 
 .menu-button-block{
   z-index: 1;
+  font-family: serif
 }
 
 @media screen and (max-width: 472px) {

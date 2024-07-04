@@ -1,6 +1,7 @@
 .Header {
     height: auto;
     overflow: hidden; 
+    font-family: serif;
 }
 
 /* ハンバーガーメニュー */
@@ -142,7 +143,11 @@
 }
 
 .menu_li {
-    color: rgba(0, 0, 0, 0.338);
+    color: rgba(0, 0, 0, 0.64);
+}
+
+.menu_li:hover {
+    color: rgb(0, 0, 0);
 }
 
 .menu_active {

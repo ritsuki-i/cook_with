@@ -7,7 +7,7 @@ const animatedComponents = makeAnimated();
 const FoodSelect = forwardRef(({ onDataChange }, ref) => {
   const [foods, setFoods] = useState([]);
   const [selectedValue, setSelectedValue] = useState([]);
-  const url = 'http://127.0.0.1:5000';
+  const url = 'https://cw.pythonanywhere.com';
 
   useEffect(() => {
     // ローカルストレージから初期値を取得
