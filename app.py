@@ -128,8 +128,6 @@ def nutrition_food_submit():
     want_second_nutrition = nutrition_name[get_want_second]
     want_third_nutrition = nutrition_name[get_want_third]
 
-    display_method = get_display_method_list[get_display_method]
-
     if get_display_method=="random":
             #food_nutrition_amountをコピー
         recipes_df = food_nutrition_amount
@@ -170,6 +168,66 @@ def nutrition_food_submit():
 
 
     return jsonify(response)
+
+@app.route('/api/ingredients_history_submit', methods=['POST'])
+def ingredients_history_submit():
+    submit_data = request.json
+    # 受け取ったデータを処理します
+    print("Received data:", submit_data)
+
+    f = open('./data/food_data.txt','r', encoding='utf-8')
+    foods_data = f.readlines()
+
+    output_data = []
+    
+    for _ in range(3):
+        data = {}
+        num = random.randint(50, 100)
+        data['url'] = foods_data[num].split(',')[0]
+        data['name'] = foods_data[num].split(',')[1]
+        data['image_url'] = foods_data[num].split(',')[2]
+        print(data)
+        output_data.append(data)
+            
+    random.shuffle(output_data)   
+
+    # 処理の結果を返す
+    response = {
+        'status': 'success',
+        'output_data' : output_data
+    }
+
+    return jsonify(response)
+
+@app.route('/api/nutrition_history_submit', methods=['POST'])
+def nutrition_history_submit():
+    submit_data = request.json
+    # 受け取ったデータを処理します
+    print("Received data:", submit_data)
+
+    foods_data = pd.read_csv("./data/food_nutritiondata_amount.csv").rename(columns={'URL': 'url', '画像URL': 'image_url', '名前': 'name'} )
+
+    output_data = []
+    
+    for _ in range(3):
+        data = {}
+        num = random.randint(50, 100)
+        data['url'] = foods_data.iloc[num]['url']  # 'url'列のデータを取得
+        data['name'] = foods_data.iloc[num]['name']  # 'name'列のデータを取得
+        data['image_url'] = foods_data.iloc[num]['image_url']  # 'image_url'列のデータを取得
+        print(data)
+        output_data.append(data)
+            
+    random.shuffle(output_data)   
+
+    # 処理の結果を返す
+    response = {
+        'status': 'success',
+        'output_data' : output_data
+    }
+
+    return jsonify(response)
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

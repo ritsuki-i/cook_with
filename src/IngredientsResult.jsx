@@ -34,6 +34,9 @@ function IngredientsResult() {
     //検索結果情報の保存
     const [resultData, setResultData] = useState([]);
 
+    //オヌヌメ情報の保存
+    const [recommendData, setRecommendData] = useState([]);
+
     //閲覧履歴の保存
     const [historyData, setLastClickedData] = useState(JSON.parse(localStorage.getItem('IngredientslastClickedData')) || []);
 
@@ -70,16 +73,49 @@ function IngredientsResult() {
     const getImageListStyles = () => {
         return {
             width: '70vw',
-            height: resultData.length > 2 ? '70vh' : '100%',
+            height: resultData.length > 2 ? '80vh' : '100%',
         };
     };
 
     const getHistoryListStyles = () => {
         return {
             width: '20vw',
-            height: historyData.length > 2 ? '70vh' : '100%',
+            height: '39vh',
         };
     };
+
+    const getRecommendListStyles = () => {
+        return {
+            width: '20vw',
+            height: '39vh'
+        };
+    };
+
+    //おすすめレシピデータの取得
+    useEffect(() => {
+        const sendDataToPython = async (data) => {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/ingredients_history_submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    setRecommendData(result.output_data);
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        sendDataToPython(historyData);
+    }, [historyData]);
 
     return (
         <div className="IngredientsResult">
@@ -150,43 +186,80 @@ function IngredientsResult() {
                         })}
                     </ImageList>
                 ) : (
-                    <div style={{width: '70vw', textAlign: 'center'}}>条件に合うレシピは見つかりませんでした</div>
+                    <div style={{ width: '70vw', textAlign: 'center' }}>条件に合うレシピは見つかりませんでした</div>
                 )}
-                {historyData.length > 0 ? (
-                    <ImageList sx={getHistoryListStyles()} cols={1} id='historyData'>
-                        <ImageListItem key="Subheader">
-                            <ListSubheader component="div">閲覧履歴</ListSubheader>
-                        </ImageListItem>
-                        {historyData.map((item) => {
-                            const itemId = item["url"]; // ユニークなIDを取得
+                <div style={{ marginRight: '3vw' }}>
+                    {historyData.length > 0 ? (
+                        <ImageList sx={getHistoryListStyles()} cols={1} id='historyData'>
+                            <ImageListItem key="Subheader">
+                                <ListSubheader component="div">閲覧履歴</ListSubheader>
+                            </ImageListItem>
+                            {historyData.map((item) => {
+                                const itemId = item["url"]; // ユニークなIDを取得
 
-                            return (
-                                <ImageListItem key={itemId}>
-                                    <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])}>
-                                        <img
-                                            srcSet={`${item["image_url"]}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                            src={`${item["image_url"]}?w=248&fit=crop&auto=format`}
-                                            alt={item["name"]}
-                                            loading="lazy"
-                                            style={{ width: '100%' }}
+                                return (
+                                    <ImageListItem key={itemId}>
+                                        <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])}>
+                                            <img
+                                                srcSet={`${item["image_url"]}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`${item["image_url"]}?w=248&fit=crop&auto=format`}
+                                                alt={item["name"]}
+                                                loading="lazy"
+                                                style={{ width: '100%' }}
+                                            />
+                                        </a>
+                                        <ImageListItemBar
+                                            title={
+                                                <Typography variant="body2" sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+                                                    <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])} style={{ color: "#ffffff" }} >
+                                                        {item["name"]}
+                                                    </a>
+                                                </Typography>
+                                            }
                                         />
-                                    </a>
-                                    <ImageListItemBar
-                                        title={
-                                            <Typography variant="body2" sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
-                                                <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])} style={{ color: "#ffffff" }} >
-                                                    {item["name"]}
-                                                </a>
-                                            </Typography>
-                                        }
-                                    />
-                                </ImageListItem>
-                            );
-                        })}
-                    </ImageList>
-                ) : (
-                    <div style={{width: '20vw', textAlign: 'center'}}>履歴がありません</div>
-                )}
+                                    </ImageListItem>
+                                );
+                            })}
+                        </ImageList>
+                    ) : (
+                        <div style={{ width: '20vw', textAlign: 'center' }}>履歴がありません</div>
+                    )}
+                    {recommendData.length > 0 ? (
+                        <ImageList sx={getRecommendListStyles()} style={{ marginTop: '2vh' }} cols={1} id='historyData'>
+                            <ImageListItem key="Subheader">
+                                <ListSubheader component="div">あなたへのおすすめ</ListSubheader>
+                            </ImageListItem>
+                            {recommendData.map((item) => {
+                                const itemId = item["url"]; // ユニークなIDを取得
+
+                                return (
+                                    <ImageListItem key={itemId}>
+                                        <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])}>
+                                            <img
+                                                srcSet={`${item["image_url"]}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`${item["image_url"]}?w=248&fit=crop&auto=format`}
+                                                alt={item["name"]}
+                                                loading="lazy"
+                                                style={{ width: '100%' }}
+                                            />
+                                        </a>
+                                        <ImageListItemBar
+                                            title={
+                                                <Typography variant="body2" sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+                                                    <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])} style={{ color: "#ffffff" }} >
+                                                        {item["name"]}
+                                                    </a>
+                                                </Typography>
+                                            }
+                                        />
+                                    </ImageListItem>
+                                );
+                            })}
+                        </ImageList>
+                    ) : (
+                        <div style={{ width: '20vw', textAlign: 'center' }}>おすすめがありません</div>
+                    )}
+                </div>
             </div>
             <button type="button" id='back-button' className="btn btn-outline-dark d-flex align-items-center m-3" onClick={() => navigate('/ingredients')}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-left me-2" viewBox="0 0 16 16">

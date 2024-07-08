@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header'
 import Footer from './Footer'
@@ -145,6 +145,24 @@ function Nutrition() {
     });
   }
 
+  //タイトルのスタイルの変更
+  const titleColorChangeRef = useRef(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const [transformTitleWidth, setTransformTitleWidth] = useState(0);
+  const [transformSubtitleWidth, setTransformSubtitleWidth] = useState(0);
+  const [transformSubtitleHeight, setTransformSubtitleHeight] = useState(0);
+
+  useEffect(() => {
+    const titleColorChangeWidth = JSON.stringify(titleColorChangeRef.current.getBoundingClientRect().width);
+    const subtitleColorChangeWidth = JSON.stringify(titleColorChangeRef.current.getBoundingClientRect().width);
+    const subtitleColorChangeHeight = JSON.stringify(titleColorChangeRef.current.getBoundingClientRect().height);
+
+    setTransformTitleWidth(-titleColorChangeWidth);
+    setTransformSubtitleWidth(-subtitleColorChangeWidth);
+    setTransformSubtitleHeight(subtitleColorChangeHeight);
+  }, []);
+
   return (
     <div className='Nutrition'>
       <div id='nut-title' className='min-vh-100 bg-white'>
@@ -153,16 +171,22 @@ function Nutrition() {
             <img src={`${process.env.PUBLIC_URL}/img/nutrition_title_img.png`} alt="Nutrition Title" className="nut-image" />
           </div>
           <div className="nut-text-container">
-            <h1><span className='text-white'>CO</span>OK_WITH</h1>
-            <p><span className='text-white'>栄養素</span>から広がる美食の世界。</p>
+            <h1 id='title' ref={titleRef} style={{ transform: `translateX(${transformTitleWidth}px)` }}><span className='text-white' id='title-color-change' ref={titleColorChangeRef}>CO</span>OK_WITH</h1>
+            <p
+              id='subtitle'
+              ref={subtitleRef}
+              style={{ transform: `translate(${transformSubtitleWidth}px, ${transformSubtitleHeight}px)` }}
+            >
+              <span className='text-white' id='subtitle-color-change' ref={subtitleRef}>栄養素</span>から広がる美食の世界。
+            </p>
           </div>
         </div>
         <div id='header' className='d-inline-flex p-2'>
           <img src={`${process.env.PUBLIC_URL}/img/COOK_WITH_transparent_black.png`} alt="COOK_WITH icon" id='cook-with-icon' />
           <Header />
         </div>
-        <button type="button" class="btn btn-outline-dark" id='view-button' onClick={PageDown}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+        <button type="button" className="btn btn-outline-dark" id='view-button' onClick={PageDown}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-down-short" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
           </svg>
         </button>
@@ -245,7 +269,7 @@ function Nutrition() {
                 </Select>
               </FormControl>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <button type="button" className="btn btn-outline-dark m-auto" onClick={handleSubmit}>検索</button>
             </Box>
           </CardContent>

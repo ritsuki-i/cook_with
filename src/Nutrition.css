@@ -1,4 +1,4 @@
-.Nutrition{
+.Nutrition {
     font-family: serif;
 }
 
@@ -21,13 +21,18 @@
     object-fit: cover;
 }
 
-.nut-text-container {
+#title {
     font-family: serif;
     position: absolute;
     top: 22vw;
-    right: 0;
-    transform: translateX(-17vw);
-    padding: 20px;
+    left: 65vw;
+}
+
+#subtitle {
+    font-family: serif;
+    position: absolute;
+    top: 22vw;
+    left: 65vw;
 }
 
 .nut-text-container h1 {
@@ -38,7 +43,6 @@
 .nut-text-container p {
     font-size: 1.5vw;
     margin: 10px 0 0;
-    transform: translateX(1%);
 }
 
 #cook-with-icon {
