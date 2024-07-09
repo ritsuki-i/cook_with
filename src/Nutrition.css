@@ -62,3 +62,68 @@
     justify-content: center;
     padding: 0;
 }
+
+#card-title{
+    display: flex;
+}
+
+@media screen and (min-width: 900px) {
+    #nut-title-smartphone {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #nut-title {
+        display: none;
+    }
+
+    #cook-with-icon {
+        width: 30vw;
+        margin: 0;
+    }
+
+    .nut-text-container-smartphone {
+        position: absolute;
+        margin: 0px;
+        padding: 5px;
+        right: 0;
+        top: 45vh;
+        text-align: right;
+        background-color: rgba(240, 248, 255, 0.541);
+    }
+
+    .nut-text-container-smartphone h1 {
+        font-size: 45px;
+        margin: 0;
+    }
+
+    .nut-text-container-smartphone p {
+        font-size: 20px;
+        margin: 10px 0 0;
+    }
+
+    #card-title{
+        display: block;
+        min-width: 80vw;
+    }
+
+    .Card {
+        min-width: 90vw;
+        height: auto;
+        padding: 1rem;
+    }
+
+    .CardContent {
+        padding: 1rem;
+    }
+
+    .form-control {
+        min-width: 100%;
+    }
+
+    #reset-btn{
+        height: 50px;
+    }
+
+}

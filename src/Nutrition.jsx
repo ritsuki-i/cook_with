@@ -191,14 +191,36 @@ function Nutrition() {
           </svg>
         </button>
       </div>
+      <div id='nut-title-smartphone' className='min-vh-100 bg-white' style={{
+        backgroundImage: `url(${process.env.PUBLIC_URL}/img/nutrition_title_smartphone_img.png)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '100vh'
+      }}>
+        <div className="nut-container-smartphone">
+          <div className="nut-text-container-smartphone">
+            <h1 id='title-smartphone'>COOK_WITH</h1>
+            <p id='subtitle-smartphone'>栄養素から広がる美食の世界。</p>
+          </div>
+        </div>
+        <div id='header' className='d-inline-flex p-2'>
+          <img src={`${process.env.PUBLIC_URL}/img/COOK_WITH_transparent_white.png`} alt="COOK_WITH icon" id='cook-with-icon' />
+          <Header />
+        </div>
+        <button type="button" className="btn btn-outline-dark" id='view-button' onClick={PageDown}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-down-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
+          </svg>
+        </button>
+      </div>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa', fontFamily: 'serif' }}>
-        <Card sx={{ minWidth: '50vw', height: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
+        <Card sx={{ minWidth: '50vw', height: '85vh', padding: 2, boxShadow: 3, position: 'relative' }}>
           <CardContent>
-            <div className='d-flex mb-5'>
+            <div className='mb-5' id='card-title'>
               <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
                 料理レシピ検索
               </Typography>
-              <button type="button" className="btn btn-outline-dark ms-auto" onClick={StorageReset}>
+              <button type="button" className="btn btn-outline-dark ms-auto" onClick={StorageReset} id='reset-btn'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-backspace-reverse" viewBox="0 0 16 16">
                   <path d="M9.854 5.146a.5.5 0 0 1 0 .708L7.707 8l2.147 2.146a.5.5 0 0 1-.708.708L7 8.707l-2.146 2.147a.5.5 0 0 1-.708-.708L6.293 8 4.146 5.854a.5.5 0 1 1 .708-.708L7 7.293l2.146-2.147a.5.5 0 0 1 .708 0z" />
                   <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7.08a2 2 0 0 0 1.519-.698l4.843-5.651a1 1 0 0 0 0-1.302L10.6 1.7A2 2 0 0 0 9.08 1H2zm7.08 1a1 1 0 0 1 .76.35L14.682 8l-4.844 5.65a1 1 0 0 1-.759.35H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7.08z" />

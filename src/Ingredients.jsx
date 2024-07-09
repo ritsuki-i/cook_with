@@ -221,7 +221,7 @@ function Ingredients() {
                     </div>
                     <div className="ing-text-container text-white">
                         <h1>COOK_WITH</h1>
-                        <p>手持ちの食材から、あなたの食卓に彩りを。</p>
+                        <p>手持ちの食材から、食卓に彩りを。</p>
                     </div>
                 </div>
                 <div id='header' className='d-inline-flex p-2'>
@@ -234,11 +234,34 @@ function Ingredients() {
                     </svg>
                 </button>
             </div>
+            <div id='ing-title-smartphone' className='min-vh-100 bg-white' style={{
+                backgroundImage: `url(${process.env.PUBLIC_URL}/img/ingradient_title_smartphone_img.png)`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                height: '100vh'
+            }}>
+                <div className="ing-container-smartphone">
+                    <div className="ing-text-container-smartphone">
+                        <h1 id='title-smartphone'>COOK_WITH</h1>
+                        <p id='subtitle-smartphone'>手持ちの食材から、食卓に彩りを。</p>
+                    </div>
+                </div>
+                <div id='header' className='d-inline-flex p-2'>
+                    <img src={`${process.env.PUBLIC_URL}/img/COOK_WITH_transparent_white.png`} alt="COOK_WITH icon" id='cook-with-icon' />
+                    <Header />
+                </div>
+                <button type="button" className="btn btn-outline-dark" id='view-button' onClick={PageDown}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
+                    </svg>
+                </button>
+            </div>
+
             <div className="search_element">
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa', fontFamily: 'serif' }}>
-                    <Card sx={{ minWidth: '50vw', minHeight: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa', fontFamily: 'serif', marginTop: '20px', marginBottom: '20px' }}>
+                    <Card sx={{ maxWidth: '90vw', minWidth: '50vw', minHeight: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
                         <CardContent>
-                            <div className='d-flex mb-5'>
+                            <div className='mb-5' id='card-title'>
                                 <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
                                     料理レシピ検索
                                 </Typography>
@@ -263,14 +286,16 @@ function Ingredients() {
                                         フィルター
                                     </Typography>
                                     <Box sx={{ mt: 2 }}>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', color: reviewChecked ? '#000000' : '#c2c2c2' }}>
-                                            <Switch
-                                                id="review"
-                                                checked={reviewChecked}
-                                                onChange={handleCheckboxChange}
-                                                inputProps={{ 'aria-label': 'controlled' }}
-                                            />
-                                            <Typography sx={{ fontFamily: 'serif', ml: 1 }}>レビュー:</Typography>
+                                        <Box id="element-box" sx={{ display: 'flex', alignItems: 'center', color: reviewChecked ? '#000000' : '#c2c2c2' }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                                <Switch
+                                                    id="review"
+                                                    checked={reviewChecked}
+                                                    onChange={handleCheckboxChange}
+                                                    inputProps={{ 'aria-label': 'controlled' }}
+                                                />
+                                                <Typography sx={{ fontFamily: 'serif', ml: 1 }}>レビュー:</Typography>
+                                            </Box>
                                             <Rating
                                                 name="half-rating"
                                                 defaultValue={2.5}
@@ -285,7 +310,7 @@ function Ingredients() {
                                                 以上
                                             </Typography>
                                         </Box>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', color: cooktimeChecked ? '#000000' : '#c2c2c2', flexWrap: 'wrap', gap: 5 }}>
+                                        <Box id="element-box" sx={{ display: 'flex', alignItems: 'center', color: cooktimeChecked ? '#000000' : '#c2c2c2', flexWrap: 'wrap', gap: 5 }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
                                                 <Switch
                                                     id="cooktime"
@@ -338,7 +363,7 @@ function Ingredients() {
                                                 <ToggleButton value="0" sx={{ fontFamily: 'serif' }} checked>以下</ToggleButton>
                                             </ToggleButtonGroup>
                                         </Box>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', color: costChecked ? '#000000' : '#c2c2c2', flexWrap: 'wrap', gap: 5 }}>
+                                        <Box id="element-box" sx={{ display: 'flex', alignItems: 'center', color: costChecked ? '#000000' : '#c2c2c2', flexWrap: 'wrap', gap: 5 }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
                                                 <Switch
                                                     id="cost"
@@ -382,14 +407,16 @@ function Ingredients() {
                                                 以下
                                             </Typography>
                                         </Box>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', color: keywordChecked ? '#000000' : '#c2c2c2' }}>
-                                            <Switch
-                                                id="keyword"
-                                                checked={keywordChecked}
-                                                onChange={handleCheckboxChange}
-                                                inputProps={{ 'aria-label': 'controlled' }}
-                                            />
-                                            <Typography sx={{ fontFamily: 'serif', ml: 1 }}>キーワード検索:</Typography>
+                                        <Box id="element-box" sx={{ display: 'flex', alignItems: 'center', color: keywordChecked ? '#000000' : '#c2c2c2' }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                                <Switch
+                                                    id="keyword"
+                                                    checked={keywordChecked}
+                                                    onChange={handleCheckboxChange}
+                                                    inputProps={{ 'aria-label': 'controlled' }}
+                                                />
+                                                <Typography sx={{ fontFamily: 'serif', ml: 1 }}>キーワード検索:</Typography>
+                                            </Box>
                                             <Box
                                                 component="form"
                                                 sx={{
@@ -398,7 +425,7 @@ function Ingredients() {
                                                 noValidate
                                                 autoComplete="off"
                                             ><div>
-                                                    <TextField id="keyword_area_select" label="Search field" disabled={!keywordChecked} onChange={handleSearchedFilterChange} value={serchedFilter} InputProps={{style: { fontFamily: 'serif' }}} InputLabelProps={{style: { fontFamily: 'serif' }}} />
+                                                    <TextField id="keyword_area_select" label="Search field" disabled={!keywordChecked} onChange={handleSearchedFilterChange} value={serchedFilter} InputProps={{ style: { fontFamily: 'serif' } }} InputLabelProps={{ style: { fontFamily: 'serif' } }} />
                                                 </div>
                                             </Box>
                                         </Box>

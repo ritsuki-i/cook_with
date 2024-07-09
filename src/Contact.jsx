@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import { Typography, useTheme, useMediaQuery } from '@mui/material';
 import emailjs from "emailjs-com";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -104,6 +104,20 @@ export default function Contact() {
     message.value = message_value;
   }, []);
 
+  //レスポンシブ対応
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down('xs'));
+  const isSm = useMediaQuery(theme.breakpoints.up('sm') && theme.breakpoints.down('md'));
+  const isMd = useMediaQuery(theme.breakpoints.up('md') && theme.breakpoints.down('lg'));
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
+
+  const getVariant = () => {
+    if (isXs) return 'h8';
+    if (isSm) return 'h7';
+    if (isMd) return 'h6';
+    if (isLg) return 'h5';
+  };
+
   return (
     <div className="Contact">
       <div id='header' className='d-inline-flex p-2'>
@@ -124,9 +138,9 @@ export default function Contact() {
       ) : (
         <form ref={form} onSubmit={formik.handleSubmit}>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', backgroundColor: '#f8f9fa', fontFamily: 'serif' }}>
-            <Card sx={{ minWidth: '50vw', height: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
+            <Card sx={{ minWidth: '50vw', maxWidth: '90vw', height: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
               <CardContent>
-                <div className='d-flex mb-5'>
+                <div className="d-inline-flex">
                   <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
                     お問い合わせ
                   </Typography>
@@ -136,7 +150,7 @@ export default function Contact() {
                 </div>
                 <Box sx={{ mb: 2 }}>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: '100%', minHeight: '8vh' }}>
-                    <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
+                    <Typography variant={getVariant()} component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
                       お名前
                     </Typography>
                     <input
@@ -153,7 +167,7 @@ export default function Contact() {
                 </Box>
                 <Box sx={{ mb: 2 }}>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: '100%', minHeight: '8vh' }}>
-                    <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
+                    <Typography variant={getVariant()} component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
                       メールアドレス
                     </Typography>
                     <input
@@ -175,7 +189,7 @@ export default function Contact() {
                 </Box>
                 <Box sx={{ mb: 2 }}>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: '100%', minHeight: '8vh' }}>
-                    <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
+                    <Typography variant={getVariant()} component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
                       内容
                     </Typography>
                     <textarea
@@ -184,13 +198,13 @@ export default function Contact() {
                       name="message"
                       onChange={handleMessageChange}
                       value={formik.values.message}
-                      InputProps={{ 
-                        style: { fontFamily: 'serif' } 
-                      }} 
-                      InputLabelProps={{ 
-                        style: { fontFamily: 'serif' } 
-                      }} 
-                    
+                      InputProps={{
+                        style: { fontFamily: 'serif' }
+                      }}
+                      InputLabelProps={{
+                        style: { fontFamily: 'serif' }
+                      }}
+
                       required
                     ></textarea>
                   </FormControl>

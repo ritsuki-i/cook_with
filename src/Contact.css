@@ -20,3 +20,17 @@
     height: 80vh;
     margin-left: 100px;
 }
+
+@media screen and (max-width: 900px) {
+
+    .form-control {
+        min-width: 100%;
+    }
+
+
+    #reset-btn{
+        height: 50px;
+        margin-right: 20px;
+    }
+
+}

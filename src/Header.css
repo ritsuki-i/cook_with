@@ -67,7 +67,7 @@
     z-index: 2;
 }
 
-.nav.show {
+.nav.show{
     opacity: 1;
     visibility: visible;
 }
@@ -133,7 +133,7 @@
     z-index: 1;
 }
 
-.overlay.show {
+.overlay.show{
     display: block;
 }
 
@@ -164,7 +164,7 @@
     list-style: none;
 }
 
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 900px) {
     .name {
         display: flex;
     }
@@ -174,25 +174,7 @@
     }
 }
 
-@media screen and (min-width: 520px) and (max-width: 960px) {
-    .header-menu {
-        display: none;
-    }
-
-    .header-logo {
-        font-size: 25px;
-    }
-
-    .Header {
-        height: 40px;
-    }
-
-    .main {
-        margin-left: 1rem;
-    }
-}
-
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 900px) {
     .title {
         font-size: 20px;
     }
@@ -200,6 +182,7 @@
     .header-menu {
         display: none;
     }
+    
 
     .header-logo {
         font-size: 25px;
