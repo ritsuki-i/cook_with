@@ -214,7 +214,7 @@ function Nutrition() {
         </button>
       </div>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f8f9fa', fontFamily: 'serif' }}>
-        <Card sx={{ minWidth: '50vw', height: '85vh', padding: 2, boxShadow: 3, position: 'relative' }}>
+        <Card sx={{ minWidth: '50vw', minHeight: '85vh', padding: 2, boxShadow: 3, position: 'relative' }}>
           <CardContent>
             <div className='mb-5' id='card-title'>
               <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
