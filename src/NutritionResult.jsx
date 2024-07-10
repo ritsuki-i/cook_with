@@ -70,7 +70,7 @@ function NutritionResult() {
 
     return {
       width: isSmallScreen ? '45vw' : '20vw',
-      heigh: isSmallScreen ? '70vh' : '40vh'
+      height: isSmallScreen ? '70vh' : '40vh'
     };
   };
 
@@ -123,13 +123,13 @@ function NutritionResult() {
   };
 
   return (
-    <div className="NutritionResult">
+    <div className="NutritionResult" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <div id='header' className='d-inline-flex p-2'>
         <img src="./img/COOK_WITH_transparent_black.png" alt="COOK_WITH icon" id='cook-with-icon' />
         <Header />
       </div>
       {window.innerWidth < 900 && (
-        <div className="toggle-container" style={{ width: '100vw', display: 'flex', justifyContent: 'space-evenly' }}>  
+        <div className="toggle-container" style={{ width: '100vw', display: 'flex', justifyContent: 'space-evenly' }}>
           <ToggleButtonGroup
             color="primary"
             value={showResults}
@@ -142,41 +142,43 @@ function NutritionResult() {
           </ToggleButtonGroup>
         </div>
       )}
-      <div className="ans_element d-flex flex-row">
-        {resultData.length > 0 ? (
-          <ImageList sx={getImageListStyles(showResults)} className='p-4' id='resultData' cols={2}>
-            <ImageListItem key="Subheader" cols={2}>
-              <ListSubheader component="div">検索結果</ListSubheader>
-            </ImageListItem>
-            {resultData.map((item) => {
-              const itemId = item["url"]; // ユニークなIDを取得
-              return (
-                <ImageListItem key={itemId}>
-                  <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])}>
-                    <img
-                      srcSet={`${item["image_url"]}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                      src={`${item["image_url"]}?w=248&fit=crop&auto=format`}
-                      alt={item["name"]}
-                      loading="lazy"
-                      style={{ width: '100%' }}
+      <div className="ans_element d-flex flex-row" style={{ flexGrow: '1' }}>
+        <div className='display-result' style={getImageListStyles(showResults)}>
+          {resultData.length > 0 ? (
+            <ImageList className='p-4' id='resultData' cols={2}>
+              <ImageListItem key="Subheader" cols={2}>
+                <ListSubheader component="div">検索結果</ListSubheader>
+              </ImageListItem>
+              {resultData.map((item) => {
+                const itemId = item["url"]; // ユニークなIDを取得
+                return (
+                  <ImageListItem key={itemId}>
+                    <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])}>
+                      <img
+                        srcSet={`${item["image_url"]}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        src={`${item["image_url"]}?w=248&fit=crop&auto=format`}
+                        alt={item["name"]}
+                        loading="lazy"
+                        style={{ width: '100%' }}
+                      />
+                    </a>
+                    <ImageListItemBar
+                      title={
+                        <Typography variant="body2" sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+                          <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])} style={{ color: "#ffffff" }} >
+                            {item["name"]}
+                          </a>
+                        </Typography>
+                      }
                     />
-                  </a>
-                  <ImageListItemBar
-                    title={
-                      <Typography variant="body2" sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
-                        <a href={item["url"]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item["url"], item["name"], item["image_url"])} style={{ color: "#ffffff" }} >
-                          {item["name"]}
-                        </a>
-                      </Typography>
-                    }
-                  />
-                </ImageListItem>
-              );
-            })}
-          </ImageList>
-        ) : (
-          <div style={{ width: '70vw', textAlign: 'center' }}>条件に合うレシピは見つかりませんでした</div>
-        )}
+                  </ImageListItem>
+                );
+              })}
+            </ImageList>
+          ) : (
+            <div style={{ marginTop: '40px', textAlign: 'center' }}>条件に合うレシピは見つかりませんでした</div>
+          )}
+        </div>
         <div style={getHistoryRecommendDivStyles(showResults)}>
           {historyData.length > 0 ? (
             <ImageList sx={getHistoryRecommendListStyles()} cols={1} id='historyData'>
@@ -212,7 +214,8 @@ function NutritionResult() {
             </ImageList>
           ) : (
             <div style={{ width: '20vw', textAlign: 'center' }}>履歴がありません</div>
-          )}{recommendData.length > 0 ? (
+          )}
+          {recommendData.length > 0 ? (
             <ImageList sx={getHistoryRecommendListStyles()} style={{ marginTop: window.innerWidth < 900 ? '0' : '2vh' }} cols={1} id='historyData'>
               <ImageListItem key="Subheader-recommend">
                 <ListSubheader component="div">おすすめのレシピ</ListSubheader>
@@ -249,7 +252,7 @@ function NutritionResult() {
           )}
         </div>
       </div>
-      <button type="button" id='back-button' className="btn btn-outline-dark d-flex align-items-center m-3" onClick={() => navigate('/nutrition')}>
+      <button type="button" id='back-button' className="btn btn-outline-dark align-items-center m-3" onClick={() => navigate('/ingredients')} style={{ maxWidth: window.innerWidth < 900 ? '20vw' : '10vw' }}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-left me-2" viewBox="0 0 16 16">
           <path fillRule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
           <path fillRule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
@@ -257,7 +260,7 @@ function NutritionResult() {
         戻る
       </button>
       <Footer />
-    </div >
+    </div>
   );
 }
 

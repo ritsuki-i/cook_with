@@ -89,7 +89,7 @@ function IngredientsResult() {
 
         return {
             width: isSmallScreen ? '45vw' : '20vw',
-            heigh: isSmallScreen ? '70vh' : '40vh'
+            height: isSmallScreen ? '70vh' : '40vh'
         };
     };
 
@@ -102,7 +102,7 @@ function IngredientsResult() {
             width: isSmallScreen ? '100vw' : 'auto',
             marginRight: isSmallScreen ? '0' : '3vw',
             justifyContent: isSmallScreen ? 'space-evenly' : 'initial',
-            padding: isSmallScreen ? '1.5rem' : null
+            padding: isSmallScreen ? '1.5rem' : null,
         };
     };
 
@@ -142,7 +142,7 @@ function IngredientsResult() {
     };
 
     return (
-        <div className="IngredientsResult">
+        <div className="IngredientsResult" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
             <div id='header' className='d-inline-flex p-2'>
                 <img src="./img/COOK_WITH_transparent_black.png" alt="COOK_WITH icon" id='cook-with-icon' />
                 <Header />
@@ -161,71 +161,73 @@ function IngredientsResult() {
                     </ToggleButtonGroup>
                 </div>
             )}
-            <div className="ans_element d-flex flex-row">
-                {resultData.length > 0 ? (
-                    <ImageList sx={getImageListStyles(showResults)} className='p-4' id='resultData'>
-                        <ImageListItem key="Subheader" cols={2}>
-                            <ListSubheader component="div">検索結果</ListSubheader>
-                        </ImageListItem>
-                        {resultData.map((item) => {
-                            const itemId = item[0]; // ユニークなIDを取得
-                            const open = Boolean(anchorEls[itemId]);
-                            const anchorEl = anchorEls[itemId];
-                            const id = open ? `popover-${itemId}` : undefined;
+            <div className="ans_element d-flex flex-row" style={{ flexGrow: '1' }}>
+                <div className='display-result' style={getImageListStyles(showResults)}>
+                    {resultData.length > 0 ? (
+                        <ImageList className='p-4' id='resultData'>
+                            <ImageListItem key="Subheader" cols={2}>
+                                <ListSubheader component="div">検索結果</ListSubheader>
+                            </ImageListItem>
+                            {resultData.map((item) => {
+                                const itemId = item[0]; // ユニークなIDを取得
+                                const open = Boolean(anchorEls[itemId]);
+                                const anchorEl = anchorEls[itemId];
+                                const id = open ? `popover-${itemId}` : undefined;
 
-                            return (
-                                <ImageListItem key={itemId}>
-                                    <a href={item[0]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item[0], item[1], item[2])}>
-                                        <img
-                                            srcSet={`${item[2]}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                            src={`${item[2]}?w=248&fit=crop&auto=format`}
-                                            alt={item[1]}
-                                            loading="lazy"
-                                            style={{ width: '100%' }}
+                                return (
+                                    <ImageListItem key={itemId}>
+                                        <a href={item[0]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item[0], item[1], item[2])}>
+                                            <img
+                                                srcSet={`${item[2]}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`${item[2]}?w=248&fit=crop&auto=format`}
+                                                alt={item[1]}
+                                                loading="lazy"
+                                                style={{ width: '100%' }}
+                                            />
+                                        </a>
+                                        <ImageListItemBar
+                                            title={
+                                                <Typography variant="body2" sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
+                                                    <a href={item[0]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item[0], item[1], item[2])} style={{ color: "#ffffff" }}>
+                                                        {item[1]}
+                                                    </a>
+                                                </Typography>
+                                            }
+                                            actionIcon={
+                                                <IconButton
+                                                    sx={{ color: 'rgba(255, 255, 255, 0.54)', zIndex: 1 }}
+                                                    aria-label={`info about ${item[0]}`}
+                                                    aria-describedby={id}
+                                                    onClick={(event) => handleClick(event, itemId)}
+                                                >
+                                                    <InfoIcon />
+                                                </IconButton>
+                                            }
                                         />
-                                    </a>
-                                    <ImageListItemBar
-                                        title={
-                                            <Typography variant="body2" sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
-                                                <a href={item[0]} target="_blank" rel="noopener noreferrer" onClick={() => handleLinkClick(item[0], item[1], item[2])} style={{ color: "#ffffff" }}>
-                                                    {item[1]}
-                                                </a>
+                                        <Popover
+                                            id={id}
+                                            open={open}
+                                            anchorEl={anchorEl}
+                                            onClose={() => handleClose(itemId)}
+                                            anchorOrigin={{
+                                                vertical: 'bottom',
+                                                horizontal: 'left',
+                                            }}
+                                        >
+                                            <Typography sx={{ p: 2 }}>
+                                                レビュー評価: {item[3] == -1 ? 'NaN' : item[3]}<br />
+                                                調理時間: {item[4]}分<br />
+                                                費用: {item[5]}円
                                             </Typography>
-                                        }
-                                        actionIcon={
-                                            <IconButton
-                                                sx={{ color: 'rgba(255, 255, 255, 0.54)', zIndex: 1 }}
-                                                aria-label={`info about ${item[0]}`}
-                                                aria-describedby={id}
-                                                onClick={(event) => handleClick(event, itemId)}
-                                            >
-                                                <InfoIcon />
-                                            </IconButton>
-                                        }
-                                    />
-                                    <Popover
-                                        id={id}
-                                        open={open}
-                                        anchorEl={anchorEl}
-                                        onClose={() => handleClose(itemId)}
-                                        anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'left',
-                                        }}
-                                    >
-                                        <Typography sx={{ p: 2 }}>
-                                            レビュー評価: {item[3] == -1 ? 'NaN' : item[3]}<br />
-                                            調理時間: {item[4]}分<br />
-                                            費用: {item[5]}円
-                                        </Typography>
-                                    </Popover>
-                                </ImageListItem>
-                            );
-                        })}
-                    </ImageList>
-                ) : (
-                    <div style={{ width: '70vw', textAlign: 'center' }}>条件に合うレシピは見つかりませんでした</div>
-                )}
+                                        </Popover>
+                                    </ImageListItem>
+                                );
+                            })}
+                        </ImageList>
+                    ) : (
+                        <div style={{ marginTop: '40px', textAlign: 'center' }}>条件に合うレシピは見つかりませんでした</div>
+                    )}
+                </div>
                 <div style={getHistoryRecommendDivStyles(showResults)}>
                     {historyData.length > 0 ? (
                         <ImageList sx={getHistoryRecommendListStyles()} cols={1} id='historyData'>
@@ -260,7 +262,7 @@ function IngredientsResult() {
                             })}
                         </ImageList>
                     ) : (
-                        <div style={{ width: '20vw', textAlign: 'center' }}>履歴がありません</div>
+                        <div style={{ width: window.innerWidth < 900 ? '45vw' : '20vw', textAlign: 'center' }}>履歴がありません</div>
                     )}
                     {recommendData.length > 0 ? (
                         <ImageList sx={getHistoryRecommendListStyles()} style={{ marginTop: window.innerWidth < 900 ? '0' : '2vh' }} cols={1} id='historyData'>
@@ -295,11 +297,11 @@ function IngredientsResult() {
                             })}
                         </ImageList>
                     ) : (
-                        <div style={{ width: '20vw', textAlign: 'center' }}>おすすめがありません</div>
+                        <div style={{ width: window.innerWidth < 900 ? '45vw' : '20vw', textAlign: 'center' }}>おすすめがありません</div>
                     )}
                 </div>
             </div>
-            <button type="button" id='back-button' className="btn btn-outline-dark d-flex align-items-center m-3" onClick={() => navigate('/ingredients')}>
+            <button type="button" id='back-button' className="btn btn-outline-dark align-items-center m-3" onClick={() => navigate('/ingredients')} style={{ maxWidth: window.innerWidth < 900 ? '20vw' : '10vw' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-left me-2" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
                     <path fillRule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
