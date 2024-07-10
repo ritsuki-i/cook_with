@@ -11,8 +11,13 @@ import Header from "./Header";
 import Footer from "./Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Contact.css';
+import useCheckConnection from './useCheckConnection.js';
 
 export default function Contact() {
+  //サーバー接続テスト
+  const url = 'https://cw.pythonanywhere.com';
+  useCheckConnection(url);
+
   const navigate = useNavigate();
   const [isSent, setIsSent] = useState(false);
   const form = useRef();
@@ -138,9 +143,13 @@ export default function Contact() {
       ) : (
         <form ref={form} onSubmit={formik.handleSubmit}>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', backgroundColor: '#f8f9fa', fontFamily: 'serif' }}>
-            <Card sx={{ minWidth: '50vw', maxWidth: '90vw', height: '70vh', padding: 2, boxShadow: 3, position: 'relative' }}>
+            <Card sx={{
+              minWidth: '50vw', maxWidth: '90vw', minHeight: '70vh', padding: 2, boxShadow: 3, position: 'relative', '@media (max-width: 900px)': {
+                minWidth: '90vw',
+              },
+            }}>
               <CardContent>
-                <div className="d-inline-flex">
+                <div className="d-flex">
                   <Typography variant="h5" component="div" gutterBottom sx={{ fontFamily: 'serif' }}>
                     お問い合わせ
                   </Typography>

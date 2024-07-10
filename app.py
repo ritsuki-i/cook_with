@@ -7,6 +7,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/api/connect', methods=['GET'])
+def data_connect():
+    return jsonify({"message": 'Connect OK!'})
+
 @app.route('/api/search_home/food_data', methods=['GET'])
 def ingredients_food_data():
     with open('./data/food_list.txt', 'r', encoding='utf-8') as f:

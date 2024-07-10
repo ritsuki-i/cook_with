@@ -8,6 +8,8 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import './Result.css'
@@ -70,24 +72,37 @@ function IngredientsResult() {
     };
 
 
-    const getImageListStyles = () => {
+    //imagelistのスタイル 
+    const getImageListStyles = (showResults) => {
+        const isSmallScreen = window.innerWidth < 900;
+        const isShow = (showResults == 'true');
+
         return {
-            width: '70vw',
+            width: isSmallScreen ? '100vw' : '70vw',
+            display: isSmallScreen && !isShow ? 'none' : null,
             height: resultData.length > 2 ? '80vh' : '100%',
         };
     };
 
-    const getHistoryListStyles = () => {
+    const getHistoryRecommendListStyles = () => {
+        const isSmallScreen = window.innerWidth < 900;
+
         return {
-            width: '20vw',
-            height: '39vh',
+            width: isSmallScreen ? '45vw' : '20vw',
+            heigh: isSmallScreen ? '70vh' : '40vh'
         };
     };
 
-    const getRecommendListStyles = () => {
+    const getHistoryRecommendDivStyles = (showResults) => {
+        const isSmallScreen = window.innerWidth < 900;
+        const isShow = (showResults == 'true');
+
         return {
-            width: '20vw',
-            height: '39vh'
+            display: isSmallScreen ? (isShow ? 'none' : 'flex') : 'block',
+            width: isSmallScreen ? '100vw' : 'auto',
+            marginRight: isSmallScreen ? '0' : '3vw',
+            justifyContent: isSmallScreen ? 'space-evenly' : 'initial',
+            padding: isSmallScreen ? '1.5rem' : null
         };
     };
 
@@ -95,7 +110,7 @@ function IngredientsResult() {
     useEffect(() => {
         const sendDataToPython = async (data) => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/ingredients_history_submit', {
+                const response = await fetch('https://cw.pythonanywhere.com/api/ingredients_history_submit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -117,15 +132,38 @@ function IngredientsResult() {
         sendDataToPython(historyData);
     }, [historyData]);
 
+    // 表示切替の状態管理(スマホ版)
+    const [showResults, setShowResults] = useState('true');
+
+    const handleToggle = (event, newValue) => {
+        if (newValue !== null) {
+            setShowResults(newValue);
+        }
+    };
+
     return (
         <div className="IngredientsResult">
             <div id='header' className='d-inline-flex p-2'>
                 <img src="./img/COOK_WITH_transparent_black.png" alt="COOK_WITH icon" id='cook-with-icon' />
                 <Header />
             </div>
+            {window.innerWidth < 900 && (
+                <div className="toggle-container" style={{ width: '100vw', display: 'flex', justifyContent: 'space-evenly' }}>
+                    <ToggleButtonGroup
+                        color="primary"
+                        value={showResults}
+                        exclusive
+                        onChange={handleToggle}
+                        aria-label="Platform"
+                    >
+                        <ToggleButton value="true">検索結果</ToggleButton>
+                        <ToggleButton value="false">履歴/おすすめ</ToggleButton>
+                    </ToggleButtonGroup>
+                </div>
+            )}
             <div className="ans_element d-flex flex-row">
                 {resultData.length > 0 ? (
-                    <ImageList sx={getImageListStyles()} className='p-4' id='resultData'>
+                    <ImageList sx={getImageListStyles(showResults)} className='p-4' id='resultData'>
                         <ImageListItem key="Subheader" cols={2}>
                             <ListSubheader component="div">検索結果</ListSubheader>
                         </ImageListItem>
@@ -188,9 +226,9 @@ function IngredientsResult() {
                 ) : (
                     <div style={{ width: '70vw', textAlign: 'center' }}>条件に合うレシピは見つかりませんでした</div>
                 )}
-                <div style={{ marginRight: '3vw' }}>
+                <div style={getHistoryRecommendDivStyles(showResults)}>
                     {historyData.length > 0 ? (
-                        <ImageList sx={getHistoryListStyles()} cols={1} id='historyData'>
+                        <ImageList sx={getHistoryRecommendListStyles()} cols={1} id='historyData'>
                             <ImageListItem key="Subheader">
                                 <ListSubheader component="div">閲覧履歴</ListSubheader>
                             </ImageListItem>
@@ -225,9 +263,9 @@ function IngredientsResult() {
                         <div style={{ width: '20vw', textAlign: 'center' }}>履歴がありません</div>
                     )}
                     {recommendData.length > 0 ? (
-                        <ImageList sx={getRecommendListStyles()} style={{ marginTop: '2vh' }} cols={1} id='historyData'>
+                        <ImageList sx={getHistoryRecommendListStyles()} style={{ marginTop: window.innerWidth < 900 ? '0' : '2vh' }} cols={1} id='historyData'>
                             <ImageListItem key="Subheader">
-                                <ListSubheader component="div">あなたへのおすすめ</ListSubheader>
+                                <ListSubheader component="div">おすすめのレシピ</ListSubheader>
                             </ImageListItem>
                             {recommendData.map((item) => {
                                 const itemId = item["url"]; // ユニークなIDを取得

@@ -12,13 +12,16 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Nutrition.css'
+import useCheckConnection from './useCheckConnection.js';
 
 function Nutrition() {
-
   const navigate = useNavigate();
 
   const [nutritions, setNutritions] = useState([]);
   const url = 'https://cw.pythonanywhere.com';
+  
+  //サーバー接続テスト
+  useCheckConnection(url);
 
   useEffect(() => {
     const fetchData = async () => {

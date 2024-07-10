@@ -16,6 +16,7 @@ import Header from './Header.jsx'
 import Footer from './Footer.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Ingradients.css'
+import useCheckConnection from './useCheckConnection.js';
 
 const MAX_min = 180;
 const MIN_min = 10;
@@ -45,6 +46,9 @@ const marks_cost = [
 
 
 function Ingredients() {
+    //サーバー接続テスト
+    const url = 'https://cw.pythonanywhere.com';
+    useCheckConnection(url);
 
     const FoodSelectRef = useRef();
     const navigate = useNavigate();
