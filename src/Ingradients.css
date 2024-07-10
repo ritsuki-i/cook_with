@@ -42,7 +42,7 @@
     filter: invert(1);
 }
 
-#view-button {
+.view-button {
     position: absolute;
     left: 50vw;
     top: 85vh;
@@ -55,7 +55,7 @@
     padding: 0;
 }
 
-#card-title{
+#card-title {
     display: flex;
 }
 
@@ -97,7 +97,7 @@
         margin: 10px 0 0;
     }
 
-    #card-title{
+    #card-title {
         display: block;
         min-width: 80vw;
     }
@@ -115,15 +115,15 @@
         min-width: 100%;
     }
 
-    #reset-btn{
+    #reset-btn {
         height: 50px;
     }
 
-    #element-box{
+    #element-box {
         display: block;
     }
 
-    #element-switch{
+    #element-switch {
         display: flex;
     }
 }
