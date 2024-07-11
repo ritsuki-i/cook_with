@@ -73,13 +73,18 @@ function IngredientsResult() {
 
 
     //imagelistのスタイル 
-    const getImageListStyles = (showResults) => {
+    const getImageDivStyles = (showResults) => {
         const isSmallScreen = window.innerWidth < 900;
         const isShow = (showResults == 'true');
 
         return {
             width: isSmallScreen ? '100vw' : '70vw',
             display: isSmallScreen && !isShow ? 'none' : null,
+        };
+    };
+
+    const getImageListStyles = () => {
+        return {
             height: resultData.length > 2 ? '80vh' : '100%',
         };
     };
@@ -162,9 +167,9 @@ function IngredientsResult() {
                 </div>
             )}
             <div className="ans_element d-flex flex-row" style={{ flexGrow: '1' }}>
-                <div className='display-result' style={getImageListStyles(showResults)}>
+                <div className='display-result' style={getImageDivStyles(showResults)}>
                     {resultData.length > 0 ? (
-                        <ImageList className='p-4' id='resultData'>
+                        <ImageList className='p-4' id='resultData' sx={getImageListStyles()}>
                             <ImageListItem key="Subheader" cols={2}>
                                 <ListSubheader component="div">検索結果</ListSubheader>
                             </ImageListItem>
