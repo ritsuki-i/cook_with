@@ -54,16 +54,21 @@ function NutritionResult() {
   };
 
   //imagelistのスタイル 
-  const getImageListStyles = (showResults) => {
+  const getImageDivStyles = (showResults) => {
     const isSmallScreen = window.innerWidth < 900;
     const isShow = (showResults == 'true');
 
     return {
-      width: isSmallScreen ? '100vw' : '70vw',
-      display: isSmallScreen && !isShow ? 'none' : null,
-      height: resultData.length > 2 ? '80vh' : '100%',
+        width: isSmallScreen ? '100vw' : '70vw',
+        display: isSmallScreen && !isShow ? 'none' : null,
     };
-  };
+};
+
+const getImageListStyles = () => {
+    return {
+        height: resultData.length > 2 ? '80vh' : '100%',
+    };
+};
 
   const getHistoryRecommendListStyles = () => {
     const isSmallScreen = window.innerWidth < 900;
@@ -143,9 +148,9 @@ function NutritionResult() {
         </div>
       )}
       <div className="ans_element d-flex flex-row" style={{ flexGrow: '1' }}>
-        <div className='display-result' style={getImageListStyles(showResults)}>
+        <div className='display-result' style={getImageDivStyles(showResults)}>
           {resultData.length > 0 ? (
-            <ImageList className='p-4' id='resultData' cols={2}>
+            <ImageList className='p-4' id='resultData' cols={2} sx={getImageListStyles()}>
               <ImageListItem key="Subheader" cols={2}>
                 <ListSubheader component="div">検索結果</ListSubheader>
               </ImageListItem>
