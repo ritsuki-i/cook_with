@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/cook_with/static/css/main.8b4063b0.css",
+    "main.js": "/cook_with/static/js/main.f0ef4a6b.js",
+    "index.html": "/cook_with/index.html",
+    "main.8b4063b0.css.map": "/cook_with/static/css/main.8b4063b0.css.map",
+    "main.f0ef4a6b.js.map": "/cook_with/static/js/main.f0ef4a6b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8b4063b0.css",
+    "static/js/main.f0ef4a6b.js"
+  ]
+}
