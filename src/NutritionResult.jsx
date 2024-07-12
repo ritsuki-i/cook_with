@@ -218,7 +218,7 @@ const getImageListStyles = () => {
               })}
             </ImageList>
           ) : (
-            <div style={{ width: '20vw', textAlign: 'center' }}>履歴がありません</div>
+            <div style={{ width: window.innerWidth < 900 ? '45vw' : '20vw', textAlign: 'center', marginTop: '50px'}}>履歴がありません</div>
           )}
           {recommendData.length > 0 ? (
             <ImageList sx={getHistoryRecommendListStyles()} style={{ marginTop: window.innerWidth < 900 ? '0' : '2vh' }} cols={1} id='historyData'>
@@ -253,11 +253,11 @@ const getImageListStyles = () => {
               })}
             </ImageList>
           ) : (
-            <div style={{ width: '20vw', textAlign: 'center' }}>おすすめがありません</div>
+            <div style={{ width: window.innerWidth < 900 ? '45vw' : '20vw', textAlign: 'center', marginTop: '50px' }}>おすすめがありません</div>
           )}
         </div>
       </div>
-      <button type="button" id='back-button' className="btn btn-outline-dark align-items-center m-3" onClick={() => navigate('/ingredients')} style={{ maxWidth: window.innerWidth < 900 ? '20vw' : '10vw' }}>
+      <button type="button" id='back-button' className="btn btn-outline-dark align-items-center m-3" onClick={() => navigate('/nutrition')} style={{ maxWidth: window.innerWidth < 900 ? '20vw' : '10vw' }}>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-left me-2" viewBox="0 0 16 16">
           <path fillRule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
           <path fillRule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />

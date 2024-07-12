@@ -267,7 +267,7 @@ function IngredientsResult() {
                             })}
                         </ImageList>
                     ) : (
-                        <div style={{ width: window.innerWidth < 900 ? '45vw' : '20vw', textAlign: 'center' }}>履歴がありません</div>
+                        <div style={{ width: window.innerWidth < 900 ? '45vw' : '20vw', textAlign: 'center', marginTop: '50px'}}>履歴がありません</div>
                     )}
                     {recommendData.length > 0 ? (
                         <ImageList sx={getHistoryRecommendListStyles()} style={{ marginTop: window.innerWidth < 900 ? '0' : '2vh' }} cols={1} id='historyData'>
@@ -302,7 +302,7 @@ function IngredientsResult() {
                             })}
                         </ImageList>
                     ) : (
-                        <div style={{ width: window.innerWidth < 900 ? '45vw' : '20vw', textAlign: 'center' }}>おすすめがありません</div>
+                        <div style={{ width: window.innerWidth < 900 ? '45vw' : '20vw', textAlign: 'center', marginTop: '50px' }}>おすすめがありません</div>
                     )}
                 </div>
             </div>
