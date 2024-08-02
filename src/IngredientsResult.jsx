@@ -78,7 +78,7 @@ function IngredientsResult() {
         const isShow = (showResults == 'true');
 
         return {
-            width: isSmallScreen ? '100vw' : '70vw',
+            width: isSmallScreen ? '90vw' : '70vw',
             display: isSmallScreen && !isShow ? 'none' : null,
         };
     };
@@ -105,7 +105,6 @@ function IngredientsResult() {
         return {
             display: isSmallScreen ? (isShow ? 'none' : 'flex') : 'block',
             width: isSmallScreen ? '100vw' : 'auto',
-            marginRight: isSmallScreen ? '0' : '3vw',
             justifyContent: isSmallScreen ? 'space-evenly' : 'initial',
             padding: isSmallScreen ? '1.5rem' : null,
         };
@@ -166,10 +165,10 @@ function IngredientsResult() {
                     </ToggleButtonGroup>
                 </div>
             )}
-            <div className="ans_element d-flex flex-row" style={{ flexGrow: '1' }}>
+            <div className="ans_element d-flex flex-row" style={{ flexGrow: '1', justifyContent: 'space-around' }}>
                 <div className='display-result' style={getImageDivStyles(showResults)}>
                     {resultData.length > 0 ? (
-                        <ImageList className='p-4' id='resultData' sx={getImageListStyles()}>
+                        <ImageList id='resultData' sx={getImageListStyles()}>
                             <ImageListItem key="Subheader" cols={2}>
                                 <ListSubheader component="div">検索結果</ListSubheader>
                             </ImageListItem>
@@ -306,7 +305,7 @@ function IngredientsResult() {
                     )}
                 </div>
             </div>
-            <button type="button" id='back-button' className="btn btn-outline-dark align-items-center m-3" onClick={() => navigate('/ingredients')} style={{ maxWidth: window.innerWidth < 900 ? '20vw' : '10vw' }}>
+            <button type="button" id='back-button' className="btn btn-outline-dark d-inline-flex align-items-center m-3" onClick={() => navigate('/ingredients')} style={{ width: '100px', justifyContent: 'center' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-double-left me-2" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
                     <path fillRule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />

@@ -19,7 +19,7 @@ function Nutrition() {
 
   const [nutritions, setNutritions] = useState([]);
   const url = 'https://cw.pythonanywhere.com';
-  
+
   //サーバー接続テスト
   useCheckConnection(url);
 
@@ -171,14 +171,19 @@ function Nutrition() {
       <div id='nut-title' className='min-vh-100 bg-white'>
         <div className="nut-container">
           <div className="nut-image-container">
-            <img src={`${process.env.PUBLIC_URL}/img/nutrition_title_img.png`} alt="Nutrition Title" className="nut-image" />
+            <img src={`${process.env.PUBLIC_URL}/img/nutrition_title_img.png`} alt="Nutrition Title" className="nut-image" style={{
+              filter: 'drop-shadow(8px 8px 9px rgba(0,0,0,0.6))'
+            }} />
           </div>
           <div className="nut-text-container">
-            <h1 id='title' ref={titleRef} style={{ transform: `translateX(${transformTitleWidth}px)` }}><span className='text-white' id='title-color-change' ref={titleColorChangeRef}>CO</span>OK_WITH</h1>
+            <h1 id='title' ref={titleRef} style={{ transform: `translateX(${transformTitleWidth}px)`, textShadow: '5px 4px 3px rgba(0, 0, 0, 0.39)' }}><span className='text-white' id='title-color-change' ref={titleColorChangeRef}>CO</span>OK_WITH</h1>
             <p
               id='subtitle'
               ref={subtitleRef}
-              style={{ transform: `translate(${transformSubtitleWidth}px, ${transformSubtitleHeight}px)` }}
+              style={{
+                transform: `translate(${transformSubtitleWidth}px, ${transformSubtitleHeight}px)`,
+                textShadow: '5px 4px 3px rgba(0, 0, 0, 0.39)'
+              }}
             >
               <span className='text-white' id='subtitle-color-change' ref={subtitleRef}>栄養素</span>から広がる美食の世界。
             </p>
@@ -202,8 +207,8 @@ function Nutrition() {
       }}>
         <div className="nut-container-smartphone">
           <div className="nut-text-container-smartphone">
-            <h1 id='title-smartphone'>COOK_WITH</h1>
-            <p id='subtitle-smartphone'>栄養素から広がる美食の世界。</p>
+            <h1 id='title-smartphone' style={{ textShadow: '5px 4px 3px rgba(0, 0, 0, 0.39)' }}>COOK_WITH</h1>
+            <p id='subtitle-smartphone' style={{ textShadow: '5px 4px 3px rgba(0, 0, 0, 0.39)' }}>栄養素から広がる美食の世界。</p>
           </div>
         </div>
         <div id='header' className='d-inline-flex p-2'>

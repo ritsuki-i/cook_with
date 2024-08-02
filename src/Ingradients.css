@@ -1,4 +1,4 @@
-.ing-image-container {
+.ing-image-container{
     position: absolute;
     top: 0;
     right: 0;
@@ -85,6 +85,7 @@
         text-align: left;
         color: rgb(255, 255, 255);
         background-color: rgba(0, 0, 0, 0.541);
+        border-radius: 10px;
     }
 
     .ing-text-container-smartphone h1 {

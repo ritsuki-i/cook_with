@@ -9,10 +9,22 @@ import Notfound from "./Notfound.jsx";
 import Contact from "./Contact.jsx";
 import IngredientsResult from "./IngredientsResult.jsx";
 import NutritionResult from "./NutritionResult.jsx";
+import PreloadImages from './PreloadImages';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const imagesToPreload = [
+  `${process.env.PUBLIC_URL}/img/COOK_WITH_transparent_white.png`,
+  `${process.env.PUBLIC_URL}/img/COOK_WITH_transparent_black.png`,
+  `url(${process.env.PUBLIC_URL}/img/ingradient_title_smartphone_img.png)`,
+  `${process.env.PUBLIC_URL}/img/ingradient_title_img.png`,
+  `url(${process.env.PUBLIC_URL}/img/nutrition_title_smartphone_img.png)`,
+  `${process.env.PUBLIC_URL}/img/nutrition_title_img.png`,
+];
+
 root.render(
   <React.StrictMode>
+    <PreloadImages imageUrls={imagesToPreload} />
     <Router basename="/cook_with">
       <Routes>
         <Route path="/" element={<Home />} />

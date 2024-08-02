@@ -224,8 +224,12 @@ function Ingredients() {
                         <img src={`${process.env.PUBLIC_URL}/img/ingradient_title_img.png`} alt="Ingradients Title" className="ing-image" />
                     </div>
                     <div className="ing-text-container text-white">
-                        <h1>COOK_WITH</h1>
-                        <p>手持ちの食材から、食卓に彩りを。</p>
+                        <h1 style={{
+                            textShadow: '5px 4px 3px rgba(255, 255, 255, 0.5)'
+                        }}>COOK_WITH</h1>
+                        <p style={{
+                            textShadow: '5px 4px 3px rgba(255, 255, 255, 1)' // 透明度を調整
+                        }}>手持ちの食材から、食卓に彩りを。</p>
                     </div>
                 </div>
                 <div id='header' className='d-inline-flex p-2'>
@@ -246,8 +250,12 @@ function Ingredients() {
             }}>
                 <div className="ing-container-smartphone">
                     <div className="ing-text-container-smartphone">
-                        <h1 id='title-smartphone'>COOK_WITH</h1>
-                        <p id='subtitle-smartphone'>手持ちの食材から、食卓に彩りを。</p>
+                        <h1 id='title-smartphone' style={{
+                            textShadow: '5px 4px 3px rgba(255, 255, 255, 0.5)'
+                        }}>COOK_WITH</h1>
+                        <p id='subtitle-smartphone' style={{
+                            textShadow: '5px 4px 3px rgba(255, 255, 255, 1)'
+                        }}>手持ちの食材から、食卓に彩りを。</p>
                     </div>
                 </div>
                 <div id='header' className='d-inline-flex p-2'>
@@ -429,7 +437,7 @@ function Ingredients() {
                                                 noValidate
                                                 autoComplete="off"
                                             ><div>
-                                                    <TextField id="keyword_area_select" label="Search field" disabled={!keywordChecked} onChange={handleSearchedFilterChange} value={serchedFilter} InputProps={{ style: { fontFamily: 'serif' } }} InputLabelProps={{ style: { fontFamily: 'serif' } }} />
+                                                    <TextField id="keyword_area_select" label="Search field" disabled={!keywordChecked} onChange={handleSearchedFilterChange} value={serchedFilter} InputProps={{ style: { fontFamily: 'serif' } }} InputLabelProps={{ style: { fontFamily: 'serif', zIndex: '0' } }} />
                                                 </div>
                                             </Box>
                                         </Box>

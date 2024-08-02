@@ -16,14 +16,24 @@ function Header({ className }) {
 
   const ShowHambuegermenu = () => {
     if (navToggleRef.current && navRef.current && overlayRef.current) {
-      navToggleRef.current.classList.toggle("show");
-      navRef.current.classList.toggle("show");
-      overlayRef.current.classList.toggle("show");
-
-      if (overlayRef.current.classList.contains("show")) {
-        document.body.style.overflow = "hidden";
-      } else {
+      const navClasses = navRef.current.classList;
+      const navToggleClasses = navToggleRef.current.classList;
+      const overlayClasses = overlayRef.current.classList;
+  
+      if (navClasses.contains("show")) {
+        navClasses.remove("show");
+        navClasses.add("hide");
+        navToggleClasses.remove("show");
+        navToggleClasses.add("hide");
+        overlayClasses.remove("show");
         document.body.style.overflow = "auto";
+      } else {
+        navClasses.remove("hide");
+        navClasses.add("show");
+        navToggleClasses.remove("hide");
+        navToggleClasses.add("show");
+        overlayClasses.add("show");
+        document.body.style.overflow = "hidden";
       }
     }
   };

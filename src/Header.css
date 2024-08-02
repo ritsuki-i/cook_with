@@ -10,14 +10,16 @@
     right: 0px;
     margin: 30px 20px;
     display: block;
-    width: 1.75rem;
-    height: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     z-index: 3;
+    background-color: #ffffff65;
+    border-radius: 5px;
 }
 
 .nav_toggle i {
     display: block;
-    width: 100%;
+    width: 1.75rem;
     height: 2px;
     background-color: #333;
     position: absolute;
@@ -25,20 +27,23 @@
 }
 
 .nav_toggle i:nth-child(1) {
-    top: 0;
+    top: 0.5rem;
+    left: 0.375rem;
 }
 
 .nav_toggle i:nth-child(2) {
     top: 0;
     bottom: 0;
+    left: 0.375rem;
     margin: auto;
 }
 
 .nav_toggle i:nth-child(3) {
-    bottom: 0;
+    bottom: 0.5rem;
+    left: 0.375rem;
 }
 
-.nav_toggle.show i{
+.nav_toggle.show i {
     background-color: #ffffff;
 }
 
@@ -58,34 +63,42 @@
     background-color: rgba(0, 0, 0, 0.648);
     position: fixed;
     top: 80px;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
     padding: 1rem;
     opacity: 0;
     visibility: hidden;
     z-index: 2;
+    transition: left 0.3s ease, opacity 0.3s ease;
 }
 
-.nav.show{
+.nav.show {
+    left: 0;
     opacity: 1;
     visibility: visible;
+}
+
+.nav.hide {
+    left: -100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: left 0.3s ease, opacity 0.3s ease, visibility 0s 0.3s, opacity 0.3s;
 }
 
 .nav_menu_ul {
     font-size: 20px;
     text-decoration: none;
     transition: transform 0.4s;
+    margin-left: 20px;
 }
 
 .nav_menu_li {
     list-style: none;
     margin-top: 20px;
-}
-
-.nav_menu_li {
     position: relative;
     padding-left: 10px;
+    color: rgb(255, 255, 255);
 }
 
 .nav_menu_li:before {
@@ -93,18 +106,9 @@
     position: absolute;
     top: 0.45em;
     left: -20px;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
     width: 5px;
     height: 5px;
-}
-
-.nav_menu_li {
-    color: rgb(255, 255, 255);
-}
-
-.nav_menu_li:before {
     border-top: 2px solid #ffffff;
     border-right: 2px solid #ffffff;
 }
@@ -133,7 +137,7 @@
     z-index: 1;
 }
 
-.overlay.show{
+.overlay.show {
     display: block;
 }
 
@@ -182,7 +186,6 @@
     .header-menu {
         display: none;
     }
-    
 
     .header-logo {
         font-size: 25px;
