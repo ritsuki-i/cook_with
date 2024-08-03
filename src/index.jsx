@@ -20,6 +20,10 @@ const imagesToPreload = [
   `${process.env.PUBLIC_URL}/img/ingradient_title_img.png`,
   `url(${process.env.PUBLIC_URL}/img/nutrition_title_smartphone_img.png)`,
   `${process.env.PUBLIC_URL}/img/nutrition_title_img.png`,
+  `${process.env.PUBLIC_URL}/img/ex1.jpg`,
+  `${process.env.PUBLIC_URL}/img/ex2.jpg`,
+  `${process.env.PUBLIC_URL}/img/ex3.jpg`,
+  `${process.env.PUBLIC_URL}/img/ex4.jpg`
 ];
 
 root.render(
