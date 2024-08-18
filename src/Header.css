@@ -147,7 +147,7 @@
 }
 
 .menu_li {
-    color: rgba(0, 0, 0, 0.64);
+    color: rgba(111, 111, 111, 0.871);
 }
 
 .menu_li:hover {
@@ -169,9 +169,6 @@
 }
 
 @media screen and (min-width: 900px) {
-    .name {
-        display: flex;
-    }
 
     .hamburger-menu {
         display: none;

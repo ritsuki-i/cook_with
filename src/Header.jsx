@@ -45,17 +45,23 @@ function Header({ className }) {
 
 
   const LoadMenu = () => {
-    const navigation = navItems.map((item, index) => (
-      <li
-        key={index}
-        className={`menu_li ${location.pathname === item ? "menu_active" : ""}`}
-        onClick={() => navigate(item)}
-      >
-        {ItemNames[index]}
-      </li>
-    ));
+    const navigation = navItems.map((item, index) => {
+      const isActive = item === "/"
+        ? location.pathname === item
+        : location.pathname.startsWith(item);
+        
+      return (
+        <li
+          key={index}
+          className={`menu_li ${isActive ? "menu_active" : ""}`}
+          onClick={() => navigate(item)}
+        >
+          {ItemNames[index]}
+        </li>
+      );
+    });
     return navigation;
-  }
+}
 
   const LoadnavMenu = () => {
     const navigation = navItems.map((item, index) => (

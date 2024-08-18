@@ -64,7 +64,7 @@ function IngredientsResult() {
         updatedHistory = updatedHistory.filter(item => item.url !== url);
 
         // 新しいエントリを先頭に追加し、リストを3つに制限
-        updatedHistory = [newEntry, ...updatedHistory].slice(0, 3);
+        updatedHistory = [newEntry, ...updatedHistory].slice(0, 5);
 
         setLastClickedData(updatedHistory);
         localStorage.setItem('IngredientslastClickedData', JSON.stringify(updatedHistory));
@@ -144,6 +144,7 @@ function IngredientsResult() {
             setShowResults(newValue);
         }
     };
+
 
     return (
         <div className="IngredientsResult" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>

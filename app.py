@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 import random
 import pandas as pd
+from collections import Counter
+from sklearn.cluster import KMeans
+import numpy as np
 from flask_cors import CORS
 
 
@@ -175,26 +178,104 @@ def nutrition_food_submit():
 
 @app.route('/api/ingredients_history_submit', methods=['POST'])
 def ingredients_history_submit():
-    submit_data = request.json
+    responsed_data = request.json
     # 受け取ったデータを処理します
-    print("Received data:", submit_data)
+    print("Received data:", responsed_data)
 
-    f = open('./data/food_data.txt','r', encoding='utf-8')
-    foods_data = f.readlines()
+    with open('./data/food_data.txt','r', encoding='utf-8') as f:
+        foods_data = [line.strip().split(',') for line in f.readlines()]
 
     output_data = []
+    recommend_element = []
+    viewed_recipe_urls = []
     
-    for _ in range(3):
-        data = {}
-        num = random.randint(50, 100)
-        data['url'] = foods_data[num].split(',')[0]
-        data['name'] = foods_data[num].split(',')[1]
-        data['image_url'] = foods_data[num].split(',')[2]
-        print(data)
-        output_data.append(data)
-            
-    random.shuffle(output_data)   
+    if len(responsed_data) > 0:
+        for i in range(len(responsed_data)):
+            recommend_element.extend([item for item in foods_data if item[1] == responsed_data[i]["name"]][0][6:])
+            viewed_recipe_urls.append(responsed_data[i]["url"])
 
+        ingredients_counter = Counter(recommend_element)
+
+        # フィルタリングする材料のリスト
+        common_ingredients = {'塩こしょう', '水', '料理酒', 'サラダ油', '水溶き片栗粉', '片栗粉'}
+
+        # フィルタリング後のカウンター
+        filtered_counter = Counter({k: v for k, v in ingredients_counter.items() if k not in common_ingredients})
+
+        print("フィルタリング後の材料:", filtered_counter)
+
+        # クラスタリング用のデータ準備
+        ingredient_names = list(filtered_counter.keys())
+        ingredient_values = list(filtered_counter.values())
+
+        # データを2次元配列に変換 (クラスタリングのため)
+        X = np.array(ingredient_values).reshape(-1, 1)
+
+        # KMeans クラスタリング
+        kmeans = KMeans(n_clusters=3, random_state=0).fit(X)
+
+        # 各材料のクラスタを取得
+        labels = kmeans.labels_
+
+        # 結果の表示
+        for i, label in enumerate(labels):
+            print(f"材料: {ingredient_names[i]}, クラスタ: {label}")
+
+        # クラスタごとの材料をリスト化
+        cluster_ingredients = {i: [] for i in range(3)}
+
+        for i, label in enumerate(labels):
+            cluster_ingredients[label].append(ingredient_names[i])
+
+        # レコメンドの実行 (ここではクラスタ0の材料を使ったレシピを提案)
+        recommended_ingredients = cluster_ingredients[0]
+        print("レコメンドするレシピに使用する材料:", recommended_ingredients)
+
+        # レシピの抽出
+        def find_top_matching_recipes(foods_data, recommended_ingredients, top_n=3):
+            matches = []
+            
+            for recipe in foods_data:
+                recipe_url = recipe[0]  # レシピのURL
+                ingredients = recipe[6:]  # 各レシピの材料リスト
+                
+                # 閲覧履歴に含まれるレシピは除外
+                if recipe_url in viewed_recipe_urls:
+                    continue
+            
+                # 材料の共通部分を求める
+                match_count = len(set(ingredients) & set(recommended_ingredients))
+                matches.append((match_count, recipe))
+            
+            # 共通材料の数でソートして、上位N件を取得
+            top_matches = sorted(matches, key=lambda x: x[0], reverse=True)[:top_n]
+            
+            return [recipe for _, recipe in top_matches]
+
+        # 抽出結果
+        top_recipes = find_top_matching_recipes(foods_data, recommended_ingredients)
+        
+        for top_recipe in top_recipes:
+            data = {}
+            data['url'] = top_recipe[0]
+            data['name'] = top_recipe[1]
+            data['image_url'] = top_recipe[2]
+            print(data)
+            output_data.append(data)
+    else:
+        for _ in range(3):
+            while True:
+                data = {}
+                num = random.randint(0, len(foods_data))
+                data['url'] = foods_data[num][0]  # 'url'列のデータを取得
+                data['name'] = foods_data[num][1]  # 'name'列のデータを取得
+                data['image_url'] = foods_data[num][2]  # 'image_url'列のデータを取得
+                if (data not in output_data):
+                    break
+            output_data.append(data)
+            
+        random.shuffle(output_data)  
+        
     # 処理の結果を返す
     response = {
         'status': 'success',
@@ -205,26 +286,73 @@ def ingredients_history_submit():
 
 @app.route('/api/nutrition_history_submit', methods=['POST'])
 def nutrition_history_submit():
-    submit_data = request.json
+    responsed_data = request.json
     # 受け取ったデータを処理します
-    print("Received data:", submit_data)
+    print("Received data:", responsed_data)
 
     foods_data = pd.read_csv("./data/food_nutritiondata_amount.csv").rename(columns={'URL': 'url', '画像URL': 'image_url', '名前': 'name'} )
 
     output_data = []
-    
-    for _ in range(3):
-        data = {}
-        num = random.randint(50, 100)
-        data['url'] = foods_data.iloc[num]['url']  # 'url'列のデータを取得
-        data['name'] = foods_data.iloc[num]['name']  # 'name'列のデータを取得
-        data['image_url'] = foods_data.iloc[num]['image_url']  # 'image_url'列のデータを取得
-        print(data)
-        output_data.append(data)
+        
+    if len(responsed_data) > 0:
+        recommended_recipe = {}
+        #レシピの閲覧履歴があるときはレコメンド
+        # responsed_data を DataFrame に変換
+        responsed_df = pd.DataFrame(responsed_data)
+
+        # 一致する name を持つ foods_data の行を抽出
+        viewed_data = foods_data[foods_data['name'].isin(responsed_df['name'])] 
+        
+        # 閲覧履歴から栄養素の合計を計算
+        total_nutrients = viewed_data.sum(numeric_only=True)
+
+        # 各栄養素の重みを計算（合計に対する割合）
+        total_sum = total_nutrients.sum()
+        weights = total_nutrients / total_sum
+
+        # 重みを表示
+        print(weights)
+        
+        # スコアの計算
+        def calculate_weighted_score(row, weights):
+            score = 0
+            for nutrient in weights.index:
+                score += row[nutrient] * weights[nutrient]
+            return score
+
+        # 各レシピのスコアを計算してDataFrameに追加
+        foods_data['score'] = foods_data.apply(calculate_weighted_score, axis=1, weights=weights)
+
+        # スコアが高い順にレシピを並べ替える
+        recommended_recipes = foods_data.sort_values(by='score', ascending=False)
+
+        # 上位3つのレシピを出力
+        for i in range(3):
+            data = {}
+            data['url'] = recommended_recipes.iloc[i]['url']  # 'url'列のデータを取得
+            data['name'] = recommended_recipes.iloc[i]['name']  # 'name'列のデータを取得
+            data['image_url'] = recommended_recipes.iloc[i]['image_url']  # 'image_url'列のデータを取得
+            print(data)
+            output_data.append(data)
+        
+    else:    
+        #レシピの閲覧履歴がないときはランダム出力
+        for _ in range(3):
+            while True:
+                data = {}
+                num = random.randint(0, len(foods_data))
+                data['url'] = foods_data[num][0]  # 'url'列のデータを取得
+                data['name'] = foods_data[num][1]  # 'name'列のデータを取得
+                data['image_url'] = foods_data[num][2]  # 'image_url'列のデータを取得
+                if (data not in output_data):
+                    break
+            output_data.append(data)
             
-    random.shuffle(output_data)   
+        random.shuffle(output_data)  
+        
 
     # 処理の結果を返す
+
     response = {
         'status': 'success',
         'output_data' : output_data

@@ -95,7 +95,7 @@ const getImageListStyles = () => {
   useEffect(() => {
     const sendDataToPython = async (data) => {
       try {
-        const response = await fetch('https://cw.pythonanywhere.com/api/nutrition_history_submit', {
+        const response = await fetch('http://127.0.0.1:5000/api/nutrition_history_submit', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -128,8 +128,8 @@ const getImageListStyles = () => {
 
   return (
     <div className="NutritionResult" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <div id='header' className='d-inline-flex p-2'>
-        <img src="./img/COOK_WITH_transparent_black.png" alt="COOK_WITH icon" id='cook-with-icon' />
+      <div id='header' className='p-2' style={{ display: 'flex', alignItems: 'stretch' }}>
+        <img src="./img/COOK_WITH_transparent_black.png" alt="COOK_WITH icon" id='cook-with-icon' style={{ height: '100%', objectFit: 'cover' }}/>
         <Header />
       </div>
       {window.innerWidth < 900 && (
