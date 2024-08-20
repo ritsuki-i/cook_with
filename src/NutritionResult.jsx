@@ -95,7 +95,7 @@ const getImageListStyles = () => {
   useEffect(() => {
     const sendDataToPython = async (data) => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/api/nutrition_history_submit', {
+        const response = await fetch('https://cw.pythonanywhere.com/api/nutrition_history_submit', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
