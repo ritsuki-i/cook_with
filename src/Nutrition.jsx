@@ -171,7 +171,7 @@ function Nutrition() {
       <div id='nut-title' className='min-vh-100 bg-white'>
         <div className="nut-container">
           <div className="nut-image-container">
-            <img src={`${process.env.PUBLIC_URL}/img/nutrition_title_img.png`} alt="Nutrition Title" className="nut-image" style={{
+            <img src={`${process.env.PUBLIC_URL}/img/nutrition_title_img.webp`} alt="Nutrition Title" className="nut-image" style={{
               filter: 'drop-shadow(8px 8px 9px rgba(0,0,0,0.6))'
             }} />
           </div>
@@ -200,7 +200,7 @@ function Nutrition() {
         </button>
       </div>
       <div id='nut-title-smartphone' className='min-vh-100 bg-white' style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/img/nutrition_title_smartphone_img.png)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/img/nutrition_title_smartphone_img.jpg)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: '100vh'

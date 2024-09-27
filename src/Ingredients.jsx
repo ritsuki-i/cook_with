@@ -221,7 +221,7 @@ function Ingredients() {
             <div id='ing-title' className='min-vh-100 bg-black'>
                 <div className="ing-container">
                     <div className="ing-image-container">
-                        <img src={`${process.env.PUBLIC_URL}/img/ingradient_title_img.png`} alt="Ingradients Title" className="ing-image" />
+                        <img src={`${process.env.PUBLIC_URL}/img/ingradient_title_img.webp`} alt="Ingradients Title" className="ing-image" />
                     </div>
                     <div className="ing-text-container text-white">
                         <h1 style={{
@@ -243,7 +243,7 @@ function Ingredients() {
                 </button>
             </div>
             <div id='ing-title-smartphone' className='min-vh-100 bg-white' style={{
-                backgroundImage: `url(${process.env.PUBLIC_URL}/img/ingradient_title_smartphone_img.png)`,
+                backgroundImage: `url(${process.env.PUBLIC_URL}/img/ingradient_title_smartphone_img.jpg)`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 height: '100vh'
